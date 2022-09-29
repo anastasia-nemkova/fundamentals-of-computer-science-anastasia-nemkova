@@ -77,7 +77,9 @@ HDD: 952 ГБ
 
 | _Команда_ | _Назначение команды_ |
 | --- | --- |
-| **ls**** -a ****-F** | Просмотр содержимого каталогаПоказ скрытых файловОтображение содержимого текущей директорий с добавлением к именам символов, характеризующих тип |
+| **ls** | Просмотр содержимого каталогаПоказ скрытых файлов |
+| **ls -a** | Показ скрытых файлов |
+| **ls -F** | Отображение содержимого текущей директорий с добавлением к именам символов, характеризующих тип |
 | **pwd** | Показывает текущую директорию |
 | **cd** | Перемещение по каталогу |
 | **сat** | Показывает содержимое файла |
@@ -104,7 +106,7 @@ HDD: 952 ГБ
 
 f.txt test.sh Видео Документы Загрузки Изображения Музыка Общедоступные 'Рабочий стол' Шаблоны
 
-**anastasia**** @ ****anastasia**** - ****VirtualBox**** :~$** ls -laF
+**anastasia@anastasia-VirtualBox:~$** ls -laF
 
 итого 104
 
@@ -174,7 +176,7 @@ drwxr-xr-x 2 anastasia anastasia 4096 сен 8 19:01 Шаблоны/
 
 .bash\_logout .emacs.d .local test.sh .vboxclient-seamless.pid Изображения Шаблоны
 
-**anastasia**** @ ****anastasia**** - ****VirtualBox**** :~$** ls -F
+**anastasia@anastasia-VirtualBox:~$** ls -F
 
 f.txttest.sh Видео/ Документы/ Загрузки/ Изображения/ Музыка/ Общедоступные/ 'Рабочий стол'/ Шаблоны/
 
@@ -194,7 +196,7 @@ Anastasia
 
 Вт 20 сен 2022 00:08:04 MSK
 
-**anastasia**** @ ****anastasia**** - ****VirtualBox**** :~$** tty
+**anastasia@anastasia-VirtualBox:~$** tty
 
 /dev/pts/0
 
@@ -286,7 +288,7 @@ f.txt f1.txt test.sh Видео Документы Загрузки Изобра
 
 **anastasia@anastasia-VirtualBox:~$** mkdir course
 
-**anastasia**** @ ****anastasia**** - ****VirtualBox**** :~$** ls
+**anastasia@anastasia-VirtualBox:~$** ls
 
 coursef1.txtf.txtlabtest.sh Видео Документы Загрузки Изображения Музыка Общедоступные 'Рабочий стол' Шаблоны
 
@@ -304,7 +306,7 @@ f1.txt
 
 **anastasia@anastasia-VirtualBox:~$** rm f1.txt
 
-**anastasia**** @ ****anastasia**** - ****VirtualBox**** :~$** ls
+**anastasia@anastasia-VirtualBox:~$** ls
 
 coursef.txtlabtest.sh Видео Документы Загрузки Изображения Музыка Общедоступные 'Рабочий стол' Шаблоны
 
@@ -320,7 +322,7 @@ f1.txt
 
 **anastasia@anastasia-VirtualBox:** ~/lab$ cd ..
 
-**anastasia**** @ ****anastasia**** - ****VirtualBox**** :~$** rmlab
+**anastasia@anastasia-VirtualBox:~$** rmlab
 
 rm: невозможно удалить 'lab': Это каталог
 
@@ -328,7 +330,7 @@ rm: невозможно удалить 'lab': Это каталог
 
 **anastasia@anastasia-VirtualBox:~$** rm -R course
 
-**anastasia**** @ ****anastasia**** - ****VirtualBox**** :~$** ls
+**anastasia@anastasia-VirtualBox:~$** ls
 
 f.txttest.sh Видео Документы Загрузки Изображения Музыка Общедоступные 'Рабочий стол' Шаблоны
 
@@ -422,7 +424,7 @@ f1.txtf.txt Видео Загрузки Музыка 'Рабочий стол'
 
 f2.txttest.sh Документы Изображения Общедоступные Шаблоны
 
-**anastasia**** @ ****anastasia**** - ****VirtualBox**** :~$** ls -lAF
+**anastasia@anastasia**** - ****VirtualBox**** :~$** ls -lAF
 
 итого 108
 
