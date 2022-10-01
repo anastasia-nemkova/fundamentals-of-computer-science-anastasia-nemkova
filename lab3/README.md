@@ -408,6 +408,51 @@ dir1 file2 Документы 'Рабочий стол'
 |**1**|**Дом.** |**01.10.22** |**10:48** |**Проведение лабораторной работы по освоению удалённых команд OC UNIX**|**-** |**Все команды были проделаны без затруднений** |
 
 **10. Замечания автора по существу работы**
+```
+anastasia@anastasia-VirtualBox:~$ ssh anastasia2@192.168.56.103
+The authenticity of host '192.168.56.103 (192.168.56.103)' can't be established.
+ECDSA key fingerprint is SHA256:U4GwaJed5Z9Hv8wuIVLAImAVZR7DXP9vccmraJUXiL8.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '192.168.56.103' (ECDSA) to the list of known hosts.
+anastasia2@192.168.56.103's password: 
+Welcome to Ubuntu 20.04.5 LTS (GNU/Linux 5.15.0-48-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+48 обновлений может быть применено немедленно.
+36 из этих обновлений, являются стандартными обновлениями безопасности.
+Чтобы просмотреть дополнительные обновления выполните: apt list --upgradable
+
+Your Hardware Enablement Stack (HWE) is supported until April 2025.
+
+The programs included with the Ubuntu system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+applicable law.
+
+anastasia2@anastasia2-VirtualBox:~$ ls
+ Видео       Загрузки      Музыка         'Рабочий стол'
+ Документы   Изображения   Общедоступные   Шаблоны
+anastasia@anastasia-VirtualBox:~$ iconv -t utf-8 > n1.txt
+wert123 dd
+anastasia@anastasia-VirtualBox:~$ cat n1.txt
+wert123 dd
+anastasia@anastasia-VirtualBox:~$ xxd n1.txt
+00000000: 7765 7274 3132 3320 6464 0a              wert123 dd.
+anastasia@anastasia-VirtualBox:~$ iconv -t utf-16 > n2.txt
+wert123 dd
+anastasia@anastasia-VirtualBox:~$ cat n2.txt
+??wert123 dd
+anastasia@anastasia-VirtualBox:~$ xxd n2.txt
+00000000: fffe 7700 6500 7200 7400 3100 3200 3300  ..w.e.r.t.1.2.3.
+00000010: 2000 6400 6400 0a00                       .d.d...
+anastasia@anastasia-VirtualBox:~$
+```
+
 
 **11. Выводы**
 
