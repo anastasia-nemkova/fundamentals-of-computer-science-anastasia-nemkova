@@ -67,7 +67,7 @@ https://github.com/mai-806-1st-year/fundamentals-of-computer-science-anastasia-n
 
 Замена специальных символов на исходный цифры
 
-![](RackMultipart20221008-1-2tdqgw_html_8f69c989b5b020a6.png)
+https://github.com/mai-806-1st-year/fundamentals-of-computer-science-anastasia-nemkova/blob/master/lab6/3.png
 
 **9. Дневник отладки**
 
