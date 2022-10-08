@@ -63,7 +63,7 @@ https://github.com/mai-806-1st-year/fundamentals-of-computer-science-anastasia-n
 
 Начало отсчёта со второго ранга левого числа при неблагоприятном исходе в первой машине
 
-![](RackMultipart20221008-1-2tdqgw_html_17e55c8ae420562e.png)
+https://github.com/mai-806-1st-year/fundamentals-of-computer-science-anastasia-nemkova/blob/master/lab6/2.png
 
 Замена специальных символов на исходный цифры
 
