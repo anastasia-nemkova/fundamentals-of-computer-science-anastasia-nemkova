@@ -59,7 +59,7 @@
 
 Замена цифр в обоих числах на специальные символы и вывод результата
 
-![](RackMultipart20221008-1-2tdqgw_html_122033ba02fb2ae3.png)
+fundamentals-of-computer-science-anastasia-nemkova/lab6/1.png
 
 Начало отсчёта со второго ранга левого числа при неблагоприятном исходе в первой машине
 
