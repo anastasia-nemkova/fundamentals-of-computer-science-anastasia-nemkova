@@ -64,8 +64,6 @@ d = ((i-x0)^2 + (j-y0)^2)^0.5
 ```
 #include <stdio.h>
 
-#include <stdlib.h>
-
 #include <math.h>
 
 int main(){
@@ -248,8 +246,6 @@ k=50, i=6, j=-24, l=6
 
 ```
 #include <stdio.h>
-
-#include <stdlib.h>
 
 #include <math.h>
 
