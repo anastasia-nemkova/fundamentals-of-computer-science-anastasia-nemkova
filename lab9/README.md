@@ -64,42 +64,39 @@ d = ((i-x0)^2 + (j-y0)^2)^0.5
 ```
 #include <stdio.h>
 #include<stdlib.h>
-#include <math.h>
+#include<math.h>
 
-int main(){
 
-int i0, j0, l0, i, j, l, f, g;
 
-i0 = 6;
+int main() {
+	int i0, j0, l0, i, j, l;
+	i0 = 6;
+	j0 = 27;
+	l0 = -15;
 
-j0 = 27;
+	for (int k = 0; k <= 50; k++) {
 
-l0 = -15;
+		i = (i0 * i0 * i0 - j0 * j0 * j0 + l0 * l0 * l0 - k) % 20;
+		j = min(i0 * j0 * l0 - k, min(i0 * i0 * l0 - k, j0 * l0 * l0 - k)) % 30;
+		l = max(i0 * j0 * l0 - k, max(i0 * i0 * l0 - k, j0 * l0 * l0 - k)) % 30;
+		l0 = l;
+		i0 = i;
+		j0 = j;
 
-for (int k = 0; k <= 50; k++){
+		if (pow((i - (-10)), 2) + pow((j - (-10)), 2) <= 100 && pow((i - (-20)), 2) + pow((j - (-20)), 2) <= 100) {
+			printf("The point fell into the specified area at step %d with coordinates (%d, %d) and the motion parameter%d\n", k, i, j, l);
+			break;
+		}
 
-  i = (i0*i0*i0 - j0*j0*j0 + l0*l0*l0 - k)%20;
+		else {
+			if (k == 50) {
+				printf("In 50 moves, the dot never got to the area we needed.\n k=%d, i=%d, j=%d, l=%d\n", k, i, j, l);
+				return 0;
+			}
+		}
+	}
 
-  j = min(i0*j0*l0 - k, min(i0*i0*l0 - k, j0*l0*l0 - k))%30;
-
-  l = max(i0*j0*l0 - k, max(i0*i0*l0 - k, j0*l0*l0 - k))%30;
-
-  l0 = l;
-
-  i0 = i;
-
-  j0 = j;
-
-  f = pow((i-(-10)),2) + pow((j - (-10)),2);
-
-  g = pow((i-(-20)),2) + pow((j - (-20)),2);
-
-  printf("k=%d i=%d j=%d l=%d 100<%d 100<%d\n", k, i, j, l, f, g);
-
-}
-
-return 0;
-
+	return 0;
 }
 ```
 ```
@@ -213,13 +210,6 @@ k=50 i=6 j=-24 l=6 100<452 100<692
 **8. Распечатка протокола**
 
 ```
-**********************************************************************
-
-** Visual Studio 2022 Developer PowerShell v17.3.4
-
-** Copyright (c) 2022 Microsoft Corporation
-
-**********************************************************************
 
 PS C:\Users\nemkn\source\repos> cl lab9.c
 
@@ -247,50 +237,39 @@ k=50, i=6, j=-24, l=6
 ```
 #include <stdio.h>
 #include<stdlib.h>
-#include <math.h>
+#include<math.h>
 
-int main(){
 
-int i0, j0, l0, i, j, l;
 
-i0 = 6;
+int main() {
+	int i0, j0, l0, i, j, l;
+	i0 = 6;
+	j0 = 27;
+	l0 = -15;
 
-j0 = 27;
+	for (int k = 0; k <= 50; k++) {
 
-l0 = -15;
+		i = (i0 * i0 * i0 - j0 * j0 * j0 + l0 * l0 * l0 - k) % 20;
+		j = min(i0 * j0 * l0 - k, min(i0 * i0 * l0 - k, j0 * l0 * l0 - k)) % 30;
+		l = max(i0 * j0 * l0 - k, max(i0 * i0 * l0 - k, j0 * l0 * l0 - k)) % 30;
+		l0 = l;
+		i0 = i;
+		j0 = j;
 
-for (int k = 0; k <= 50; k++){
+		if (pow((i - (-10)), 2) + pow((j - (-10)), 2) <= 100 && pow((i - (-20)), 2) + pow((j - (-20)), 2) <= 100) {
+			printf("The point fell into the specified area at step %d with coordinates (%d, %d) and the motion parameter%d\n", k, i, j, l);
+			break;
+		}
 
-i = (i0*i0*i0 - j0*j0*j0 + l0*l0*l0 - k)%20;
+		else {
+			if (k == 50) {
+				printf("In 50 moves, the dot never got to the area we needed.\n k=%d, i=%d, j=%d, l=%d\n", k, i, j, l);
+				return 0;
+			}
+		}
+	}
 
-j = min(i0*j0*l0 - k, min(i0*i0*l0 - k, j0*l0*l0 - k))%30;
-
-l = max(i0*j0*l0 - k, max(i0*i0*l0 - k, j0*l0*l0 - k))%30;
-
-l0 = l;
-
-i0 = i;
-
-j0 = j;
-
-if (pow((i-(-10)),2) + pow((j - (-10)),2)<=100 && pow((i-(-20)),2) + pow((j - (-20)),2)<=100){
-
-printf("The point fell into the specified area at step %d with coordinates (%d, %d) and the motion parameter%d\n", k, i, j, l);
-
-break;}
-
-else {
-
-if(k==50){
-
-printf ("In 50 moves, the dot never got to the area we needed.\n k=%d, i=%d, j=%d, l=%d\n", k, i, j, l);
-
-return 0;}}
-
-}
-
-return 0;
-
+	return 0;
 }
 ```
 
@@ -309,25 +288,25 @@ return 0;
 int ipow(int base, int exp);
 
 int main(void) {
-	int base, exp;
-	scanf_s("%d%d",&base,&exp);
-	int result = ipow(base, exp);
-	printf("%d", result);
-	return 0;
+    int base, exp;
+    scanf_s("%d%d",&base,&exp);
+    int result = ipow(base, exp);
+    printf("%d", result);
+    return 0;
 }
 
 int ipow(int base, int exp) {
-	int result = 1;
-	for (; exp != 0; ) {
-		if (exp % 2 == 0) {
-			exp = exp / 2;
+    int result = 1;
+    for (; exp != 0; ) {
+        if (exp % 2 == 0) {
+	    exp = exp / 2;
             base *= base;	
-		}
-		else {
-			--exp;
-			result *= base;
-		}		
-	}
+}
+	else {
+	    --exp;
+	    result *= base;
+}		
+}
 	return result;
 }
 ```
