@@ -137,7 +137,6 @@ int main() {
 **8. Распечатка протокола**
 
 ```
-```
 PS C:\Users\nemkn\source\repos> .\ff.exe
 
 k=0 i=-2 j=0 l=15 100<164 100<724
