@@ -61,15 +61,24 @@
 
 <b>Замена цифр в обоих числах на специальные символы и вывод результата</b>
 
+
 ![](https://github.com/mai-806-1st-year/fundamentals-of-computer-science-anastasia-nemkova/blob/master/lab6/1.png)
+
 
 <b>Начало отсчёта со второго ранга левого числа при неблагоприятном исходе в первой машине</b>
 
+
 ![](https://github.com/mai-806-1st-year/fundamentals-of-computer-science-anastasia-nemkova/blob/master/lab6/2.png)
+
+
 
 <b>Замена специальных символов на исходный цифры</b>
 
+
+
 ![](https://github.com/mai-806-1st-year/fundamentals-of-computer-science-anastasia-nemkova/blob/master/lab6/3.png)
+
+
 
 **9. Дневник отладки**
 
