@@ -69,9 +69,8 @@ d = ((i-x0)^2 + (j-y0)^2)^0.5
 #include<math.h>
 
 
-
 int main() {
-	int i0, j0, l0, i, j, l;
+	int i0, j0, l0, i, j, l, f, g;
 	i0 = 6;
 	j0 = 27;
 	l0 = -15;
@@ -84,18 +83,10 @@ int main() {
 		l0 = l;
 		i0 = i;
 		j0 = j;
+		f = pow((i - (-10)), 2) + pow((j - (-10)), 2);
+		g = pow((i - (-20)), 2) + pow((j - (-20)), 2);
 
-		if (pow((i - (-10)), 2) + pow((j - (-10)), 2) <= 100 && pow((i - (-20)), 2) + pow((j - (-20)), 2) <= 100) {
-			printf("The point fell into the specified area at step %d with coordinates (%d, %d) and the motion parameter%d\n", k, i, j, l);
-			break;
-		}
-
-		else {
-			if (k == 50) {
-				printf("In 50 moves, the dot never got to the area we needed.\n k=%d, i=%d, j=%d, l=%d\n", k, i, j, l);
-				return 0;
-			}
-		}
+		printf("k=%d i=%d j=%d l=%d 100<%d 100<%d\n", k, i, j, l, f, g);
 	}
 
 	return 0;
