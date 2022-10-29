@@ -78,23 +78,23 @@ l0 = -15;
 
 for (int k = 0; k <= 50; k++){
 
-i = (i0*i0*i0 - j0*j0*j0 + l0*l0*l0 - k)%20;
+  i = (i0*i0*i0 - j0*j0*j0 + l0*l0*l0 - k)%20;
 
-j = min(i0*j0*l0 - k, min(i0*i0*l0 - k, j0*l0*l0 - k))%30;
+  j = min(i0*j0*l0 - k, min(i0*i0*l0 - k, j0*l0*l0 - k))%30;
 
-l = max(i0*j0*l0 - k, max(i0*i0*l0 - k, j0*l0*l0 - k))%30;
+  l = max(i0*j0*l0 - k, max(i0*i0*l0 - k, j0*l0*l0 - k))%30;
 
-l0 = l;
+  l0 = l;
 
-i0 = i;
+  i0 = i;
 
-j0 = j;
+  j0 = j;
 
-f = pow((i-(-10)),2) + pow((j - (-10)),2);
+  f = pow((i-(-10)),2) + pow((j - (-10)),2);
 
-g = pow((i-(-20)),2) + pow((j - (-20)),2);
+  g = pow((i-(-20)),2) + pow((j - (-20)),2);
 
-printf("k=%d i=%d j=%d l=%d 100<%d 100<%d\n", k, i, j, l, f, g);
+  printf("k=%d i=%d j=%d l=%d 100<%d 100<%d\n", k, i, j, l, f, g);
 
 }
 
@@ -302,7 +302,35 @@ return 0;
 
 **10. Замечания автора по существу работы**
 
-Замечаний нет
+Возведение числа x в степень y.
+```
+#include <assert.h>
+#include <stdio.h>
+int ipow(int base, int exp);
+
+int main(void) {
+	int base, exp;
+	scanf_s("%d%d",&base,&exp);
+	int result = ipow(base, exp);
+	printf("%d", result);
+	return 0;
+}
+
+int ipow(int base, int exp) {
+	int result = 1;
+	for (; exp != 0; ) {
+		if (exp % 2 == 0) {
+			exp = exp / 2;
+            base *= base;	
+		}
+		else {
+			--exp;
+			result *= base;
+		}		
+	}
+	return result;
+}
+```
 
 **11. Выводы**
 
