@@ -1,16 +1,18 @@
-**Отчёт по лабораторной работе №9 по курсу**
+# Отчёт по лабораторной работе №9 по курсу «Фундаментальная информатика»
 
-**«Фундаментальная информатика»**
+<b>Студент группы:</b> <ins>М8О-108Б-22, Немкова Анастасия Романовна, № по списку 14</ins>
 
-Студент группы: М8О-108Б-22, Немкова Анастасия Романовна,
+<b>Контакты e-mail:</b> <ins>nastya.nemkova.04@mail.ru<ins>
 
-№ по списку 14
+<b>Работа выполнена:</b> «22» <ins>октября</ins> <ins>2022</ins>
 
-Контакты: [nastya.nemkova.04@mail.ru](mailto:nastya.nemkova.04@mail.ru)
+<b>Преподаватель:</b> <ins>асп. каф.806 Сахаров Никита Александрович</ins>
 
-Работа выполнена: 22.10.2022
+<b>Входной контроль знаний с оценкой:</b> <ins>5 (отлично)</ins>
 
-Преподаватель: Сахаров Никита Александрович
+<b>Отчет сдан</b> «22» <ins>октября</ins> <ins>2022</ins> г., <b>итоговая оценка</b> <ins>5 (отлично)</ins>
+
+<b>Подпись преподавателя:</b> ___________
 
 **1. Тема**
 
@@ -207,33 +209,7 @@ k=50 i=6 j=-24 l=6 100<452 100<692
 
 Видим, что за 50 шагов расстояние от точки до центра окружностей больше радиуса, следовательно, точка ни разу не попала в заданную область.
 
-**8. Распечатка протокола**
-
-```
-
-PS C:\Users\nemkn\source\repos> cl lab9.c
-
-Оптимизирующий компилятор Microsoft (R) C/C++ версии 19.33.31630 для x86
-
-(C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
-
-lab9.c
-
-Microsoft (R) Incremental Linker Version 14.33.31630.0
-
-Copyright (C) Microsoft Corporation. All rights reserved.
-
-/out:lab9.exe
-
-lab9.obj
-
-PS C:\Users\nemkn\source\repos> .\lab9.exe
-
-In 50 moves, the dot never got to the area we needed.
-
-k=50, i=6, j=-24, l=6
-```
-
+<b>Программа, выясняющая попадает ли точка в заданную область</b>
 ```
 #include <stdio.h>
 #include<stdlib.h>
@@ -273,6 +249,34 @@ int main() {
 }
 ```
 
+**8. Распечатка протокола**
+
+```
+
+PS C:\Users\nemkn\source\repos> cl lab9.c
+
+Оптимизирующий компилятор Microsoft (R) C/C++ версии 19.33.31630 для x86
+
+(C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
+
+lab9.c
+
+Microsoft (R) Incremental Linker Version 14.33.31630.0
+
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+/out:lab9.exe
+
+lab9.obj
+
+PS C:\Users\nemkn\source\repos> .\lab9.exe
+
+In 50 moves, the dot never got to the area we needed.
+
+k=50, i=6, j=-24, l=6
+```
+
+
 **9. Дневник отладки**
 
 | № | Лаб.ИлиДом. | Дата | Время | Событие | Действие по исправлению | Примечание |
@@ -281,32 +285,32 @@ int main() {
 
 **10. Замечания автора по существу работы**
 
-Возведение числа x в степень y.
+Возведение числа base в степень exp.
 ```
 #include <assert.h>
 #include <stdio.h>
 int ipow(int base, int exp);
 
 int main(void) {
-    int base, exp;
-    scanf_s("%d%d",&base,&exp);
-    int result = ipow(base, exp);
-    printf("%d", result);
-    return 0;
+	int base, exp;
+	scanf_s("%d%d", &base, &exp);
+	int result = ipow(base, exp);
+	printf("%d", result);
+	return 0;
 }
 
 int ipow(int base, int exp) {
-    int result = 1;
-    for (; exp != 0; ) {
-        if (exp % 2 == 0) {
-	    exp = exp / 2;
-            base *= base;	
-}
-	else {
-	    --exp;
-	    result *= base;
-}		
-}
+	int result = 1;
+	for (; exp != 0; ) {
+		if (exp % 2 == 0) {
+			exp = exp / 2;
+			base *= base;
+		}
+		else {
+			--exp;
+			result *= base;
+		}
+	}
 	return result;
 }
 ```
@@ -314,3 +318,5 @@ int ipow(int base, int exp) {
 **11. Выводы**
 
 В ходе выполнения данной лабораторной работы было изучено создание итеративных простейших программ на языке С. Также были приобретены навыки по составлению текстов и отладке программ с целочисленными рекуррентными соотношениями.
+
+<b>Подпись студента:</b> ___________
