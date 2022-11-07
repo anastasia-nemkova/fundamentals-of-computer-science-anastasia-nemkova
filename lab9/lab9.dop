@@ -7,7 +7,7 @@ int min(int a, int b) {
     return b < a ? b : a;
 }
 int max(int a, int b) {
-    return a < b ? b : a;
+   return a < b ? b : a;
 }
 
 typedef struct {
@@ -16,7 +16,7 @@ typedef struct {
     int l;
 } Point;
 
-typedef struct {
+ typedef struct {
     int x;
     int y;
     int r;
@@ -30,7 +30,7 @@ Point updatePoint(Point p, int k) {
     return next;
 }
 
-bool isInCircle(Circle c, Point p) {
+bool isInCircle(Circle c, Point p){
     int dx = p.i - c.x, dy = p.j - c.y;
     return dx * dx + dy * dy <= c.r * c.r;
 }
@@ -44,8 +44,7 @@ int main() {
         if (isInCircle(c, p) && isInCircle(b, p)) {
             printf("The point fell into the specified area at step %d with coordinates (%d, %d) and the motion parameter %d\n", k, p.i, p.j, p.l);
             break;
-        }
-        else if (k == 50)
+        } else if (k == 50)
             printf("In 50 moves, the dot never got to the area we needed.\nk=%d, i=%d, j=%d, l=%d\n", k, p.i, p.j, p.l);
     }
     return 0;
