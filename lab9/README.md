@@ -103,34 +103,34 @@ int main() {
 
 
 int main() {
-	int i0, j0, l0, i, j, l;
-	i0 = 6;
-	j0 = 27;
-	l0 = -15;
+    int i0, j0, l0, i, j, l;
+    i0 = 6;
+    j0 = 27;
+    l0 = -15;
 
-	for (int k = 0; k <= 50; k++) {
+    for (int k = 0; k <= 50; k++) {
 
-		i = (i0 * i0 * i0 - j0 * j0 * j0 + l0 * l0 * l0 - k) % 20;
-		j = min(i0 * j0 * l0 - k, min(i0 * i0 * l0 - k, j0 * l0 * l0 - k)) % 30;
-		l = max(i0 * j0 * l0 - k, max(i0 * i0 * l0 - k, j0 * l0 * l0 - k)) % 30;
-		l0 = l;
-		i0 = i;
-		j0 = j;
+        i = (i0 * i0 * i0 - j0 * j0 * j0 + l0 * l0 * l0 - k) % 20;
+        j = min(i0 * j0 * l0 - k, min(i0 * i0 * l0 - k, j0 * l0 * l0 - k)) % 30;
+        l = max(i0 * j0 * l0 - k, max(i0 * i0 * l0 - k, j0 * l0 * l0 - k)) % 30;
+        l0 = l;
+        i0 = i;
+        j0 = j;
 
-		if (pow((i - (-10)), 2) + pow((j - (-10)), 2) <= 100 && pow((i - (-20)), 2) + pow((j - (-20)), 2) <= 100) {
-			printf("The point fell into the specified area at step %d with coordinates (%d, %d) and the motion parameter%d\n", k, i, j, l);
-			break;
-		}
+        if (pow((i - (-10)), 2) + pow((j - (-10)), 2) <= 100 && pow((i - (-20)), 2) + pow((j - (-20)), 2) <= 100) {
+          printf("The point fell into the specified area at step %d with coordinates (%d, %d) and the motion parameter%d\n", k, i, j, l);
+          break;
+        }
 
-		else {
-			if (k == 50) {
-				printf("In 50 moves, the dot never got to the area we needed.\n k=%d, i=%d, j=%d, l=%d\n", k, i, j, l);
-				return 0;
-			}
-		}
-	}
+        else {
+            if (k == 50) {
+                printf("In 50 moves, the dot never got to the area we needed.\n k=%d, i=%d, j=%d, l=%d\n", k, i, j, l);
+                return 0;
+            }
+        }
+        }
 
-	return 0;
+    return 0;
 }
 ```
 
@@ -273,33 +273,58 @@ k=50, i=6, j=-24, l=6
 
 **10. Замечания автора по существу работы**
 
-Возведение числа base в степень exp.
+<b>Программа, выясняющая попадает ли точка в заданную область, написанная с использованием struct</b>
 ```
-#include <assert.h>
+#include <math.h>
+#include <stdbool.h>
 #include <stdio.h>
-int ipow(int base, int exp);
+#include <stdlib.h>
 
-int main(void) {
-	int base, exp;
-	scanf_s("%d%d", &base, &exp);
-	int result = ipow(base, exp);
-	printf("%d", result);
-	return 0;
+int min(int a, int b) {
+    return b < a ? b : a;
+}
+int max(int a, int b) {
+   return a < b ? b : a;
 }
 
-int ipow(int base, int exp) {
-	int result = 1;
-	for (; exp != 0; ) {
-		if (exp % 2 == 0) {
-			exp = exp / 2;
-			base *= base;
-		}
-		else {
-			--exp;
-			result *= base;
-		}
-	}
-	return result;
+typedef struct {
+    int i;
+    int j;
+    int l;
+} Point;
+
+ typedef struct {
+    int x;
+    int y;
+    int r;
+} Circle;
+
+Point updatePoint(Point p, int k) {
+    Point next;
+    next.i = (p.i * p.i * p.i - p.j * p.j * p.j + p.l * p.l * p.l - k) % 20;
+    next.j = min(p.i * p.j * p.l - k, min(p.i * p.i * p.l - k, p.j * p.l * p.l - k)) % 30;
+    next.l = max(p.i * p.j * p.l - k, max(p.i * p.i * p.l - k, p.j * p.l * p.l - k)) % 30;
+    return next;
+}
+
+bool isInCircle(Circle c, Point p){
+    int dx = p.i - c.x, dy = p.j - c.y;
+    return dx * dx + dy * dy <= c.r * c.r;
+}
+
+int main() {
+    Point p = { 6, 27, -15 };
+    Circle c = { -10, -10, 10 };
+    Circle b = { -20, -20, 10 };
+    for (int k = 0; k <= 50; ++k) {
+        p = updatePoint(p, k);
+        if (isInCircle(c, p) && isInCircle(b, p)) {
+            printf("The point fell into the specified area at step %d with coordinates (%d, %d) and the motion parameter %d\n", k, p.i, p.j, p.l);
+            break;
+        } else if (k == 50)
+            printf("In 50 moves, the dot never got to the area we needed.\nk=%d, i=%d, j=%d, l=%d\n", k, p.i, p.j, p.l);
+    }
+    return 0;
 }
 ```
 
