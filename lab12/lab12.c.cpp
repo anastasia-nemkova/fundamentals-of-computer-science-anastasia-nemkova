@@ -1,7 +1,7 @@
-﻿#include <stdio.h>
+#include <stdio.h>
 
 int main() {
-	long N;
+    long N;
     scanf_s("%ld", &N);
     int d, k;
     int c = 0;
