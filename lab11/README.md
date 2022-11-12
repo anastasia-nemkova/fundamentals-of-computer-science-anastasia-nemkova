@@ -44,9 +44,14 @@
 
 **6. Идея, метод, алгоритм решения задачи**
 
-
-
-**7. Сценарий выполнения работы**
+1. Подсчитываем простую контрольную сумму;
+2. Вводим функцию для вывода массива:
+   - выделяем память под массиы;
+   - берём по одному символу из строки и вводим условие на проверку полученного знака;
+   - если это какой-то знак препинания или пробел, то обрабатываем полученную до этого стороку и зануляем её размер;
+   - если не встречаем спец.символ, то добавляем этот элемент на текущую пустую позицию и увеличиваем длину текущего слова на 1.
+   
+   **7. Сценарий выполнения работы**
 
 
 Код программы:
@@ -56,16 +61,11 @@
 #include <ctype.h>
 #include <stdlib.h>
 
-unsigned int max_size = 100;
-
-unsigned long big_num() {
-    unsigned long factor = 1;
-    factor = factor * 1103515245;
-    return (factor);
-}
+unsigned int max_size = 50;
 
 unsigned long control_sum(const unsigned char word[], unsigned int length) {
     unsigned long res = 0;
+    const long big_num = 1103515245;
     for (int i = 0; i < length; i++) {
         res += word[i] * big_num() % 15250;
     }
@@ -118,6 +118,20 @@ int main() {
 **8. Распечатка протокола**
 
 ```
+anastasia@anastasia-VirtualBox:~$ gcc lab11.c
+anastasia@anastasia-VirtualBox:~$ ./a.out
+hello world!
+hello: 40840
+world!: 67325
+^C
+anastasia@anastasia-VirtualBox:~$ gcc lab11.c
+anastasia@anastasia-VirtualBox:~$ ./a.out
+i water flowers everyday
+i: 12475
+water: 38265
+flowers: 71150
+everyday: 48385
+^C
 
 ```
 
