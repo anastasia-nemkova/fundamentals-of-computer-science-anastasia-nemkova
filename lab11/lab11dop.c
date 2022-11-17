@@ -15,7 +15,6 @@ void processing_string() {
             if(word != ' '){
                 sim1 = word;
                 if(sim && sim1!=10){
-                    //printf("%d\n %d\n", sim, sim1);
                     sym = sym + sim*sim1 + sim/sim1;
                     continue;
                 }
