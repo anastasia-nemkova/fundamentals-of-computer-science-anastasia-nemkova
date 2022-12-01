@@ -8,7 +8,7 @@
 
 <b>Преподаватель:</b> <ins>асп. каф.806 Сахарин Никита Александрович</ins>
 
-<b>Отчет сдан</b> «12» <ins>ноябрь</ins> <ins>2022</ins> г., <b>итоговая оценка</b> <ins>
+<b>Отчет сдан</b> «26» <ins>ноябрь</ins> <ins>2022</ins> г., <b>итоговая оценка</b> <ins> 5
 
 <b>Подпись преподавателя:</b> ___________
 
@@ -129,7 +129,7 @@ Type "apropos word" to search for commands related to "word"...
 
 Reading symbols from a.out...
 
-_(gdb)_ help
+(gdb) help
 
 List of classes of commands:
 
@@ -169,7 +169,7 @@ Type "apropos -v word" for full documentation of commands related to "word".
 
 Command name abbreviations are allowed if unambiguous.
 
-_(gdb)_ list 1,19
+(gdb) list 1,19
 
 1 #include <stdio.h>
 
@@ -225,87 +225,87 @@ Breakpoint 1, main () at lab10.c:3
 
 3 int main(void){
 
-_(gdb)_ next
+(gdb) next
 
 5 scanf("%lf%lf%lf", &a, &b, &c);
 
-_(gdb)_ print a
+(gdb) print a
 
 $1 = 4.6355705385357047e-310
 
-_(gdb)_ set var a=1
+(gdb) set var a=1
 
-_(gdb)_ print a
+(gdb) print a
 
 $2 = 1
 
-_(gdb)_ print b
+(gdb) print b
 
 $3 = 6.9533490934611385e-310
 
-_(gdb)_ set var b=5
+(gdb) set var b=5
 
-_(gdb)_ print b
+(gdb) print b
 
 $4 = 5
 
-_(gdb)_ print c
+(gdb) print c
 
 $5 = 4.6355705385319004e-310
 
-_(gdb)_ set var c=6
+(gdb) set var c=6
 
-_(gdb)_ print c
+(gdb) print c
 
 $6 = 6
 
-_(gdb)_ next
+(gdb) next
 
 continue
 
 6 D = b*b - 4*a*c;
 
-_(gdb)_ next
+(gdb) next
 
 7 if( D < 0 ){
 
-_(gdb)_ next
+(gdb) next
 
 9 else if( D == 0 ){
 
-_(gdb)_ next
+(gdb) next
 
 14 x1 = (-b - sqrt(D)) / (2*a);
 
-_(gdb)_ next
+(gdb) next
 
 15 x2 = (-b + sqrt(D)) / (2*a);
 
-_(gdb)_ next
+(gdb) next
 
 16 printf("Two roots: %lf%lf\n", x1, x2);
 
-_(gdb)_ next
+(gdb) next
 
 Two roots: -3.000000-2.000000
 
 18 return 0;
 
-_(gdb)_ bt
+(gdb) bt
 
 #0 main () at lab10.c:18
 
-_(gdb)_ ptype a
+(gdb) ptype a
 
 type = double
 
-_(gdb)_ continue
+(gdb) continue
 
 Continuing.
 
 [Inferior 1 (process 3519) exited normally]
 
-_(gdb)_ run
+(gdb) run
 
 Starting program: /home/anastasia/a.out
 
@@ -313,13 +313,13 @@ Breakpoint 1, main () at lab10.c:3
 
 3 int main(void){
 
-_(gdb)_ step
+(gdb) step
 
 5 scanf("%lf%lf%lf", &a, &b, &c);
 
-_(gdb)_ set args 4 86 3
+(gdb) set args 4 86 3
 
-_(gdb)_ continue
+(gdb) continue
 
 Continuing.
 
@@ -329,11 +329,11 @@ One root: -0.749999
 
 [Inferior 1 (process 3529) exited normally]
 
-_(gdb)_ print a
+(gdb) print a
 
 $7 = {i = {0, 1045149306}, d = 1.2904777690891933e-08}
 
-_(gdb)_ quit
+(gdb) quit
 ```
 
 ## 9. Дневник отладки
@@ -343,6 +343,96 @@ _(gdb)_ quit
 | 1 | Дом. | 29.10.22 | 13:48 | Отладка простейшей программы на С | - | - |
 
 ## 10. Замечания автора по существу работы
+
+```
+anastasia@anastasia-VirtualBox:~$ gcc -g lab9dop.c
+anastasia@anastasia-VirtualBox:~$ gdb a.out
+GNU gdb (Ubuntu 9.2-0ubuntu1~20.04.1) 9.2
+Copyright (C) 2020 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type "show copying" and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+    <http://www.gnu.org/software/gdb/documentation/>.
+
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from a.out...
+(gdb) list 1,52
+1	#include <math.h>
+2	#include <stdbool.h>
+3	#include <stdio.h>
+4	#include <stdlib.h>
+5	
+6	int min(int a, int b) {
+7	    return b < a ? b : a;
+8	}
+9	int max(int a, int b) {
+10	    return a < b ? b : a;
+11	}
+12	
+13	typedef struct {
+14	    int i;
+15	    int j;
+16	    int l;
+17	} Point;
+18	
+19	typedef struct {
+20	    int x;
+21	    int y;
+22	    int r;
+23	} Circle;
+--Type <RET> for more, q to quit, c to continue without paging--
+24	
+25	Point updatePoint(Point p, int k) {
+26	    Point next;
+27	    next.i = (p.i * p.i * p.i - p.j * p.j * p.j + p.l * p.l * p.l - k) % 20;
+28	    next.j = min(p.i * p.j * p.l - k, min(p.i * p.i * p.l - k, p.j * p.l * p.l - k)) % 30;
+29	    next.l = max(p.i * p.j * p.l - k, max(p.i * p.i * p.l - k, p.j * p.l * p.l - k)) % 30;
+30	    return next;
+31	}
+32	
+33	bool isInCircle(Circle c, Point p) {
+34	    int dx = p.i - c.x, dy = p.j - c.y;
+35	    return dx * dx + dy * dy <= c.r * c.r;
+36	}
+37	
+38	int main() {
+39	    Point p = { 6, 27, -15 };
+40	    Circle c = { -10, -10, 10 };
+41	    Circle b = { -20, -20, 10 };
+42	    for (int k = 0; k <= 50; ++k) {
+43	        p = updatePoint(p, k);
+--Type <RET> for more, q to quit, c to continue without paging--
+44	        if (isInCircle(c, p) && isInCircle(b, p)) {
+45	            printf("The point fell into the specified area at step %d with coordinates (%d, %d) and the motion parameter %d\n", k, p.i, p.j, p.l);
+46	            break;
+47	        }
+48	        else if (k == 50)
+49	            printf("In 50 moves, the dot never got to the area we needed.\nk=%d, i=%d, j=%d, l=%d\n", k, p.i, p.j, p.l);
+50	    }
+51	    return 0;
+52	}
+(gdb) break 47 if k = 20
+Breakpoint 1 at 0x1432: file lab9dop.c, line 48.
+(gdb) run
+Starting program: /home/anastasia/a.out 
+
+Breakpoint 1, main () at lab9dop.c:48
+48	        else if (k == 50)
+(gdb) print k
+$1 = 20
+(gdb) print p.i
+$2 = -2
+(gdb) print p
+$3 = {i = -2, j = 0, l = 15}
+(gdb) quit
+```
 
 ## 11. Выводы
 
