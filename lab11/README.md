@@ -4,11 +4,11 @@
 
 <b>Контакты e-mail:</b> <ins>nastya.nemkova.04@mail.ru<ins>
 
-<b>Работа выполнена:</b> «12» <ins>ноября</ins> <ins>2022</ins>
+<b>Работа выполнена:</b> «18» <ins>ноября</ins> <ins>2022</ins>
 
 <b>Преподаватель:</b> <ins>асп. каф.806 Сахарин Никита Александрович</ins>
 
-<b>Отчет сдан</b> «17» <ins>ноябрь</ins> <ins>2022</ins> г., <b>итоговая оценка</b> <ins>
+<b>Отчет сдан</b> «26» <ins>ноябрь</ins> <ins>2022</ins> г., <b>итоговая оценка</b> <ins>5
 
 <b>Подпись преподавателя:</b> ___________
 
@@ -143,50 +143,74 @@ everyday: 48385
 
 ## 10. Замечания автора по существу работы
 
-  Вычисление контрольной суммы слов исходного текста с использованием функции getchar
+  Вычисление контрольной суммы слов исходного текста с использованием функции getchar, switch и case
   
 ```
 #include <stdio.h>
-#include <ctype.h>
-#include <stdlib.h>
 
-void processing_string() {
-    int sym = 0;
+typedef enum {
+    READING,
+    FIRST_LIMITATION,
+    SECOND,
+    TRANSLATION,
+    HASHING,
+    ENTER,
+}Step;
+
+Step step = READING;
+     
+void hash_f() {
+    int hash = 0;
     int sim;
-    int sim1;
-    char word;
-    word = getchar();
-    while(word != EOF){
-        if(word != ' ' && word != '\t' || word == '!' || word == '.'){
-            sim = word;
-            word = getchar();
-            if(word != ' '){
-                sim1 = word;
-                if(sim && sim1!=10){
-                    sym = sym + sim*sim1 + sim/sim1;
-                    continue;
+    long p = 1;
+    const int mod = 1e9 + 7, k = 31;
+    for(char word = getchar(); word != EOF ; word = getchar()) {
+        switch(step) {
+            case READING:
+                if(word != ' ') {
+                    step = ENTER;
                 }
-        
-            }else if(word == ' '){
-                processing_string();
-            }
-            printf("%d\n", sym); 
-            break;
+                if(word == ' ') {
+                    goto stop;
+                    break;
+                }
+            case ENTER:
+                if(word == '\n') {
+                    printf("hash is %d\n", hash);
+                    break;
+                }
+                if(word != '\n') {
+                    step = FIRST_LIMITATION;     
+                }
+            case FIRST_LIMITATION:
+                if(word == '!' || word == '.' || word == '\t' || word == '\r') {
+                    step = TRANSLATION;
+                }    
+            case TRANSLATION:
+                sim = word;
+                step = HASHING;
+                printf("%d\n", sim);
+            case HASHING:
+                hash = (hash + sim * p) % mod;
+                p = (p * k) % mod;
+                step = READING;
+                continue;
 
-        }else if(word == ' '){
-            processing_string();
+                
         }
+    stop: printf("hash is %d\n", hash); continue;   
     }
+    
 }
-
-int main() {
-  processing_string(); 
-  return 0;
+                 
+int main(){
+    hash_f();
+    return 0;
 }
 ```
 
 ## 11. Выводы
 
-В ходе выполнения лабораторной работы были получены навыки по написанию программы для анализа вводимого текста. Были изучены функция getchar, создание массивов, функции malloc и realloc, управляющие символы. Было освоено написание кода для вычесления контрольной суммы слов вводимого текста без использования особых хеш-функций 
+В ходе выполнения лабораторной работы были получены навыки по написанию программы для анализа вводимого текста. Были изучены функция getchar,оператор множественного выбора switch,case, создание массивов, функции malloc и realloc, управляющие символы. Было освоено написание кода для вычесления контрольной суммы слов вводимого текста с использованием полиномиальной хеш-функции.
 
 <b>Подпись студента:</b> ___________
