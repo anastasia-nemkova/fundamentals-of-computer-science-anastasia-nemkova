@@ -4,11 +4,11 @@
 
 <b>Контакты e-mail:</b> <ins>nastya.nemkova.04@mail.ru<ins>
 
-<b>Работа выполнена:</b> «09» <ins>ноября</ins> <ins>2022</ins>
+<b>Работа выполнена:</b> «18» <ins>ноября</ins> <ins>2022</ins>
 
 <b>Преподаватель:</b> <ins>асп. каф.806 Сахарин Никита Александрович</ins>
 
-<b>Отчет сдан</b> «17» <ins>ноябрь</ins> <ins>2022</ins> г., <b>итоговая оценка</b> <ins>
+<b>Отчет сдан</b> «26» <ins>ноябрь</ins> <ins>2022</ins> г., <b>итоговая оценка</b> <ins>5
 
 <b>Подпись преподавателя:</b> ___________
 
@@ -116,55 +116,91 @@ NO
 
 ## 10. Замечания автора по существу работы
 
-Программа для проверки различности смежных разрядов числа, написанная с использованием getchar
+Программа для проверки различности смежных разрядов числа, написанная с использованием getchar, switch и case
 ```
 #include <stdio.h>
-#include <stdlib.h>
 
-void process() {
-    char N;
-    int d, k, num;
+typedef enum {
+    LIMITATIONS,
+    NUMBER1,
+    NUMBER2,
+    COMPARISON,
+    ENTER,
+}Step;
+
+
+int process() {
+    int d, k;
     int c = 0;
     int g = 0;
-    N = getchar();
-    while( N != EOF || N == 0){  
-        if( N != ' ' && N != '\n' ){     
-            num = N - 48;
-            if(num || num == 0){
-                d = num;    
+    Step step = LIMITATIONS;
+    char N = getchar();
+    while (N != EOF) {
+        switch(step) {
+            case LIMITATIONS:
+                if(N != ' ') {
+                    step = NUMBER1;
+                }
+                if(N == '\n') {
+                    break;
+                }
+                if(N == ' ') {
+                    step = ENTER;
+                    continue;  
+                }
+            case NUMBER1:
+                d = N - '0';
+                step = NUMBER2;
+            case NUMBER2:
                 N = getchar();
-                k = N - 48;
-            //printf("%d\n %d\n", num,k);
-                if ( k == d){
-                    g = g + 1;
+                if (N != ' ') {
+                    k = N - '0';
+                step = COMPARISON;
+                }
+                if(N == ' ') {
+                    step = ENTER;
                     continue;
-                    }else{
-                        c = c + 1;
-                        continue;
-                    }
-            } 
-        }else if( N == ' '){
-            process();
-        }
-    if (c > 0 && g == 0){ 
-        printf("DIFFERENT\n");
-        break;
-    }if(g > 0) {
-         printf("NO\n");
-         break;
+                }
+            case COMPARISON:
+                if(d == k) {
+                    ++g;
+                }
+                step = LIMITATIONS;       
+                continue;
+            case ENTER:
+              goto newword;
+          }
+          
+        newword: break;
+        
     }
-     
-    } 
-} 
+    return g;
+       
+}
+
+void result() {
+    for (char N = getchar(); N != EOF; N = getchar()) {
+        if(N!= ' ') {
+            int g = process();
+            if(g > 0) {
+                printf("NO\n");
+            }
+            if(g == 0) {
+                printf("DIFFERENT\n");
+            }
+        }
+    }        
+}
  
- int main(){
-     process();
+ int main() {
+     result();
      return 0;
  }
+ 
  ```
 
 ## 11. Выводы
 
-В ходе выполнения данной лабораторной работы были приобретены навыки для работы с целочисленным типом данных на языке Си. Были освоены функция getchar, конструкция цикла с предусловием while, условный оператор if и математематические операторы. Также было изучено поразрядное сревнение цифр целого десятичного числа.
+В ходе выполнения данной лабораторной работы были приобретены навыки для работы с целочисленным типом данных на языке Си. Были освоены функция getchar,оператор множественного выбора switch, case, конструкция цикла с предусловием while, условный оператор if и математематические операторы. Также было изучено поразрядное сревнение цифр целого десятичного числа.
 
 <b>Подпись студента:</b> ___________
