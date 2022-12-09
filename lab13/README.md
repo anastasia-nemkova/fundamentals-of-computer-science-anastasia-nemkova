@@ -45,19 +45,89 @@
 
 ## 6. Идея, метод, алгоритм решения задачи
 
+Составляем множество согласных, равное объединению множеств, состоящих из одной согласной. Считываем один символ из введенных слов, проверяем является ли он разделителем
 
 
 ## 7. Сценарий выполнения работы
 
+```:src/lab13.c
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
 
-```
+typedef unsigned long long set;
+
+bool is_separator(int sym) {
+    return (sym == ' ' || sym == '\t' || sym == '\n');
+}
+
+int letter_to_int(int sym) {
+    if (sym >= 'a' && sym <= 'z')
+        return sym - 'a';
+    if (sym >= 'A' && sym <= 'Z')
+        return sym - 'A';
+    else
+      return -1;
+}
+
+set letter_to_set(int sym) {
+    int ind = letter_to_int(sym);
+    return (1U) << ind;
+}
+
+void check_letters() {
+    int c;
+    set all_letters = 0;
+    set consonant_letters = letter_to_set('B') | letter_to_set('C') | letter_to_set('D') | letter_to_set('F') | letter_to_set('G') | letter_to_set('H') | letter_to_set('J') | letter_to_set('K') | letter_to_set('L') | letter_to_set('M') | letter_to_set('N') | letter_to_set('P') | letter_to_set('Q') | letter_to_set('R') | letter_to_set('S') | letter_to_set('T') | letter_to_set('V') | letter_to_set('W') | letter_to_set('X');
+    while (true) {
+        c = getchar();
+        if (is_separator(c)) {
+            continue;
+        } else if (c == EOF) {
+            if (((all_letters & consonant_letters) == consonant_letters)) { 
+                printf("NO \n");
+            } else { 
+                printf("YES\n");
+            }
+            break;
+        } else {
+            all_letters = all_letters | letter_to_set(c);
+        }
+    }
+}
+
+int main() {
+    check_letters();
+    return 0;
+}
   
 ```
 
 ## 8. Распечатка протокола
 
 ```
-
+anastasia@anastasia-VirtualBox:~$ gcc lab13.c
+anastasia@anastasia-VirtualBox:~$ ./a.out
+RRU yrechjew rioejvnb bxnbhxgrf12 /jwef.fjefjew4
+YES
+anastasia@anastasia-VirtualBox:~$ ./a.out
+fghjkloiuytredfghjukjhv vfghjchyfyhg hcvbnbbnfddsippkk,,mvcsqqweazxxcv bmnm.,j.l;ol[o]gpdieuywteredyutiosxjhsgsafaqgbzbxncmc
+NO 
+anastasia@anastasia-VirtualBox:~$ ./a.out
+weyrucuwb cqwuiuqREEWDF hhwjwuedgcSDF qwertbcvxnzm uyecg
+YES
+anastasia@anastasia-VirtualBox:~$ ./a.out
+ uwhcu iuznwuqdup cggw.,.kzpiedzp\pw[p  wuiuijkwq idwj
+YES
+anastasia@anastasia-VirtualBox:~$ ./a.out
+uyehcede sdxbxsvxdweiuweuipejlf sbdgh
+YES
+anastasia@anastasia-VirtualBox:~$ ./a.out
+0
+YES
+anastasia@anastasia-VirtualBox:~$ ./a.out
+rty
+YES
 
 ```
 
@@ -72,6 +142,6 @@
 
 ## 11. Выводы
 
-В ходе выполнения данной лабораторной работы были приобретены
+В ходе выполнения данной лабораторной работы были приобретены навыки по работе с множествами. Было изучено написание set и побитовые операции над множествами. 
 
 <b>Подпись студента:</b> ___________
