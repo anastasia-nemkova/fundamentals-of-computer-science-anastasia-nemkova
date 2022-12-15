@@ -105,7 +105,7 @@ Caisa уже купил сахар и теперь идет домой. Во в�
 
 Выведите единственное целое число — минимальное количество денег, которое придется заплатить Caisa, чтобы пройти игру.
 
-https://github.com/mai-806-1st-year/fundamentals-of-computer-science-anastasia-nemkova/blob/2bde1c74634029f0f345e44ef72e8d2630ecc4ae/lab13/lab13dop.c#L1-L32
+https://github.com/mai-806-1st-year/fundamentals-of-computer-science-anastasia-nemkova/blob/44fd8bd21f06de7abef33e18774068547594b92e/lab13/lab13dop.c#L1-L31
 
 **Тесты**
 ```
