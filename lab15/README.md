@@ -128,6 +128,57 @@ Min elem: -1
   
 На каждый набор входных данных выведите одно число — количество пар $(a,b)$, таких, что $1 ≤ a ≤ A,$ $1 ≤ b ≤ B,$ и равенство $a * b + a + b = conc(a,b)$ верно.
 
+https://github.com/mai-806-1st-year/fundamentals-of-computer-science-anastasia-nemkova/blob/ba5c88af6fad02f3cc3d04af7fca2ed8671b6ad4/lab15/lab15dop.c#L1-L38
+
+**Тесты**
+```
+anastasia@anastasia-VirtualBox:~$ gcc lab15dop.c
+anastasia@anastasia-VirtualBox:~$ ./a.out
+3
+1 11
+4 2
+191 31415926
+1
+0
+1337
+anastasia@anastasia-VirtualBox:~$ ./a.out
+1
+3 45
+3
+anastasia@anastasia-VirtualBox:~$ ./a.out
+4
+0 785
+0
+5 1009
+15
+3 78
+3
+45 67
+45
+anastasia@anastasia-VirtualBox:~$ ./a.out
+5
+2 8
+89 3678
+7 10
+4 3748596745
+56 0
+0
+267
+7
+32
+0
+anastasia@anastasia-VirtualBox:~$ ./a.out
+4
+1 1
+0
+1 6768707079
+9
+4 98767
+16
+9 8756342
+54
+```
+
 ## 11. Выводы
 
 В ходе выполнения данной лабораторной работы были приобретены навыки по обработке матриц. Были освоены работа с указателями и обработка элементов матрицы. 
