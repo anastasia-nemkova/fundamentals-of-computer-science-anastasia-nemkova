@@ -4,7 +4,7 @@
 
 <b>Контакты e-mail:</b> <ins>nastya.nemkova.04@mail.ru<ins>
 
-<b>Работа выполнена:</b> «09» <ins>декабря</ins> <ins>2022</ins>
+<b>Работа выполнена:</b> «14» <ins>декабря</ins> <ins>2022</ins>
 
 <b>Преподаватель:</b> <ins>асп. каф.806 Сахарин Никита Александрович</ins>
 
@@ -114,7 +114,49 @@ anastasia@anastasia-VirtualBox:~$ ./a.out
   | 40 | 12 | 24 | 25 | 26 | 6 | 18 |
   | 13 | 27 | 28 | 29 | 30 | 31 | 7 |
   
+  https://github.com/mai-806-1st-year/fundamentals-of-computer-science-anastasia-nemkova/blob/13f57a5d9ec1c52a3a6ac4e8a7bfce38152e4df4/lab14/lab14dop.c#L1-L69
   
+  **Тесты**
+  ```
+  anastasia@anastasia-VirtualBox:~$ cat f.txt
+6
+ 1 11 21 27 33 35
+16  2 10 22 26 34
+17 15  3  9 23 25
+30 18 14  4  8 24
+31 29 19 13  5  7
+36 32 28 20 12  6
+anastasia@anastasia-VirtualBox:~$ cat test.txt
+7
+ 1  2  3  4  5  6  7
+ 8  9 10 11 12 13 14
+15 16 17 18 19 20 21
+22 23 24 25 26 27 28
+29 30 31 32 33 34 35
+36 37 38 39 40 41 42
+43 44 45 46 47 48 49      
+anastasia@anastasia-VirtualBox:~$ gcc lab14dop.c
+anastasia@anastasia-VirtualBox:~$ ./a.out
+3
+1 2 3
+4 5 6
+7 8 9
+1 5 9 3 7 6 8 4 2 
+anastasia@anastasia-VirtualBox:~$ ./a.out <test.txt
+1 9 17 25 33 41 49 7 13 19 31 37 43 26 34 27 20 42 35 28 21 14 32 38 39 40 44 45 46 47 48 24 16 23 30 8 15 22 29 36 18 12 11 10 6 5 4 3 2 
+anastasia@anastasia-VirtualBox:~$ ./a.out <f.txt
+1 2 3 4 5 6 35 26 9 14 29 36 8 23 7 24 25 34 19 13 32 28 20 12 15 18 16 17 30 31 22 10 33 27 21 11 
+anastasia@anastasia-VirtualBox:~$ cat t.txt
+5
+ 1 25 24 23  6
+19  2 22  7 13
+20 18  3 10 12
+21  8 14  4 11
+ 9 15 16 17  5
+anastasia@anastasia-VirtualBox:~$ gcc lab14dop.c
+anastasia@anastasia-VirtualBox:~$ ./a.out <t.txt
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 
+```
 
 ## 11. Выводы
 
