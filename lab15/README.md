@@ -128,7 +128,7 @@ Min elem: -1
   
 На каждый набор входных данных выведите одно число — количество пар $(a,b)$, таких, что $1 ≤ a ≤ A,$ $1 ≤ b ≤ B,$ и равенство $a * b + a + b = conc(a,b)$ верно.
 
-https://github.com/mai-806-1st-year/fundamentals-of-computer-science-anastasia-nemkova/blob/ba5c88af6fad02f3cc3d04af7fca2ed8671b6ad4/lab15/lab15dop.c#L1-L38
+https://github.com/mai-806-1st-year/fundamentals-of-computer-science-anastasia-nemkova/blob/f418838bcd3702bac12ac7c3a2015900596e51d6/lab15/lab15dop.c#L1-L38
 
 **Тесты**
 ```
