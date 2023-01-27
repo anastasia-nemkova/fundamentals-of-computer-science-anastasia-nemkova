@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <math.h>
+
 #define MAX_ITER (100)
 
 double machine_eps() {
@@ -15,13 +16,13 @@ long double func(long double x) {
 }
 
 long double form_teilor(long double x, int n, double abs_eps, double otn_eps){
-    long double sum = 0;
+    long double sum = 1;
     for (long double i = -(n + 3); i <= -3; i++){
-        sum *= x;
-        sum += i;
-        if (fabs(sum) <= fmax(otn_eps * fabs(sum), abs_eps)) {
+        if (fabs(i - (i + 1)) <= fmax(otn_eps * fmax(fabs(i), fabs(i + 1)), abs_eps)) {
             break;
         }
+        sum *= x;
+        sum += i;
     }
     return sum;
 }
