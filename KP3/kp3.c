@@ -16,18 +16,17 @@ long double func(long double x) {
 }
 
 long double form_teilor(long double x, int n, double abs_eps, double otn_eps){
-    int j;
-    long double sum[j];
+    long double sum = 1;
+    long double sum1 = 0;
     for (long double i = -(n + 3); i <= -3; i++){
-        for(int j = 0; j <= MAX_ITER; j++){
-            sum[j] *= x;
-            sum[j] += i;
-            if (fabs(sum[j] - sum[j + 1]) <= fmax(otn_eps * fmax(fabs(sum[j]), fabs(sum[j + 1])), abs_eps)) {
+        sum *= x;
+        sum += i;
+        if (fabs(sum - sum1) <= fmax(otn_eps * fmax(fabs(sum), fabs(sum1)), abs_eps)) {
                 break;
-            }
         }
+        sum1 = sum;
     }
-    return sum[n];
+    return sum;
 }
 
 int main() {
