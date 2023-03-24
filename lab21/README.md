@@ -25,7 +25,7 @@
 Удаление файлов с указанным префиксом, длина которых находится в указанном диапазоне
 
 **Дополнительное задание**
-1) Если указан параметр "?", то выводится подсказка (спецификация программы)
+1) Если указан параметр "??", то выводится подсказка (спецификация программы)
 2) Если параметры опущены, то их значения должны быть запрошены у пользователя
 
 ## 4. Оборудование
@@ -51,7 +51,7 @@ HDD: 952 ГБ
 ## 6. Идея, метод, алгоритм решения задачи
 
 1. Рассматриваем введенные аргументы. Если они некорректы, то выводим соответствующие сообщения, пока не будут введены верные аргументы.
-2. При вводе "?" выводим спецификацию программы.
+2. При вводе "??" выводим спецификацию программы.
 3. Рассматриваем файлы в директории lab21, ищем префикс и размер каждого файла.
 4. Сравниваем с заданными пользователем параметрами.
 5. Удаляем подходящие под заданные параметры файлы и выводим названия удаленных файлов.
@@ -61,7 +61,7 @@ HDD: 952 ГБ
 ```
 #!/bin/bash
 
-if [ $# -eq 0 ]
+if [ $# -eq 0 -a "$1" != "??" ]
 then
     while [ -z $prefix ]
     do
@@ -69,7 +69,7 @@ then
         read prefix bordleft bordright
     done
 fi
-if [ $# -le 1 -a "$1" != "?" ]
+if [ $# -le 1 -a "$1" != "??" ]
 then
     while [ -z $bordleft ]
     do
@@ -77,7 +77,7 @@ then
         read bordleft bordright
     done
 fi
-if [ $# -le 2 -a "$1" != "?" ]
+if [ $# -le 2 -a "$1" != "??" ]
 then
     while [ -z $bordright ]
     do
@@ -93,7 +93,7 @@ then
         read prefix bordleft bordright
     done
 fi
-if [ "$1" = "?" ]
+if [ "$1" = "??" ]
 then
     echo "Specification: $0 <prefix> <leftbord> <rightbord>"
 fi
@@ -110,7 +110,7 @@ if [ -z $bordright ]
 then
     bordright=$3
 fi
-if [ "$1" != "?" ]
+if [ "$1" != "??" ]
 then
     for fl in ~/lab21/*.*
     do
@@ -133,7 +133,19 @@ fi
 anastasia@anastasia-VirtualBox:~/lab21$ touch a.txt a a.ght s.txt a.sdf d a.c
 anastasia@anastasia-VirtualBox:~/lab21$ ls
 a  a.c  a.ght  a.sdf  a.txt  d  lab21.sh  s.txt
-
+anastasia@anastasia-VirtualBox:~/lab21$ ./lab21.sh ??
+Specification: ./lab21.sh <prefix> <leftbord> <rightbord>
+anastasia@anastasia-VirtualBox:~/lab21$ ./lab21.sh
+Enter the prefix, left and right border
+Enter the prefix, left and right border b
+Enter the left and right border 5 25
+anastasia@anastasia-VirtualBox:~/lab21$ ./lab21.sh
+Enter the prefix, left and right border a 2 200
+Deleted file: /home/anastasia/lab21/a.ght
+Deleted file: /home/anastasia/lab21/a.sdf
+Deleted file: /home/anastasia/lab21/a.txt
+anastasia@anastasia-VirtualBox:~/lab21$ ls
+a  a.c  d  lab21.sh  s.txt
 ```
 
 ## 9. Дневник отладки
