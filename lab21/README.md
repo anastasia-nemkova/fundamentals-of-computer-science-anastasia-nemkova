@@ -156,6 +156,13 @@ a  a.c  d  lab21.sh  s.txt
 
 ## 10. Замечания автора по существу работы
 
+**Защита с Codeforces (div 2)**
+
+https://codeforces.com/contest/1806/submission/197934579
+
+**Дорешка**
+
+https://codeforces.com/contest/1806/submission/198922980
 
 ## 11. Выводы
 
