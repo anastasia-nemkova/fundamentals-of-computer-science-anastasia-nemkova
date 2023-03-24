@@ -776,6 +776,13 @@ anastasia@anastasia-VirtualBox:~/ar1$ bzip2 -v -1 m2
 
 ## 10. Замечания автора по существу работы
 
+**Защита с Олимпроги**
+
+https://mai2022.contest.codeforces.com/group/Ej1bTQMkro/contest/427390/submission/197666169
+
+**Дорешка**
+
+https://mai2022.contest.codeforces.com/group/Ej1bTQMkro/contest/427390/submission/198070044
 
 ## 11. Выводы
 
