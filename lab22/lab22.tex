@@ -1,0 +1,160 @@
+\documentclass[11pt]{report}
+\pagestyle{empty}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage[english,russian]{babel}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{pgfplots}
+\usepackage{amsmath}
+\usepackage[paperheight=29.7cm,paperwidth=21cm,textwidth=17cm, top=25mm]{geometry}
+
+
+\begin{document}
+\begin{flushleft}
+
+{%
+\Large
+\bf Отчёт по лабораторной работе №22 по курсу ``Языки и методы программирования'' \\
+\rule{150mm}{.3pt}
+}
+
+\vspace{3mm}
+{%
+{\bfСтудент группы:}
+ \underline{М8О-108Б-22 Немкова Анастасия Романовна, № по списку 13}
+ 
+\vspace{3mm}
+{\bfКонтакты e-mail:}
+\href{mailto:nastya.nemkova@mail.ru}{nastya.nemkova@mail.ru}
+
+\vspace{3mm}
+{\bfРабота выполнена:}
+"24" \underline{марта 2023 г.}
+
+\vspace{3mm}
+{\bfПреподаватель:}
+\underline{асп.каф.806 Сахарин Никита Александрович}
+
+\vspace{3mm}
+{\bfВходной контроль знаний с оценкой:}
+-
+
+\vspace{3mm}
+{\bfОтчёт сдан:}
+"25" \underline{марта 2023 г.,} {\bfитоговая оценка:}
+-
+
+\vspace{3mm}
+{\bfПодпись преподавателя:} \underline{\hspace{3cm}}
+}
+\end{flushleft}
+
+\section*{1. Тема}
+Издательская система TeX
+
+\section*{2. Цель работы}
+Научиться работать с TeX и LaTeX 
+
+\section*{3. Задание}
+Вёрстка отчёта по лабораторной работе №22 на TeX
+
+\section*{4. Оборудование}
+\begin{itemize}
+    \item Процессор: AMD RYZEN 7 5800H 3.20GHz ОП 16 ГБ
+    \item HSD: 957 ГБ
+    \item Монитор: 16 3840 x 2160
+    \item Графический адаптер:  NVIDIA GeForce RTX 3050
+\end{itemize}
+
+\section*{5. Программное обеспечение}
+\begin{itemize}
+     \item Операционная система семейства: Linux Ubuntu, версия 22.04.1 LTS
+     \item Интерпретатор команд: bash, версия 5.0.17(1)
+     \item Система программирования: -
+     \item Редактор текстов: emacs
+     \item Прикладные системы и программы: -
+     \item Местонахождение и имена файлов программ и данных на домашнем компьютере: /home/anastasia
+\end{itemize}
+
+\section*{6. Идея, метод, алгоритм решения задачи}
+
+\hspace{10mm}
+TeX (произносится «тех», пишется также «TeX») — это созданная американским математиком и программистом Дональдом Кнутом (Donald E. Knuth) система для верстки текстов с формулами. Сам по себе TEX представляет собой специализированный язык программирования, на котором пишутся издательские системы, используемые на практике. Каждая издательская система на базе TEX’а представляет собой пакет макроопределений этого языка.TEX не является системой типа WYSIWYG (What You See Is What You Get): чтобы посмотреть, как будет выглядеть на печати набираемый текст, надо запустить отдельную программу.
+
+\hspace{5mm}
+Документы набираются на собственном языке разметки в виде обычных ASCII-файлов, содержащих информацию о форматировании текста или выводе изображений. Эти файлы (обычно имеющие расширение «.tex») транслируются специальной программой в файлы «.dvi», которые могут быть отображены на экране или напечатаны. DVI-файлы можно специальными программами преобразовать в PostScript, PDF или другой электронный формат.
+
+\section*{7. Сценарий выполнения работы}
+
+\begin{enumerate}
+    \item Ознакомление с системой TeX, используя открытую литературу
+    \item Изучение примеров и опробывание системы
+    \item Вёрстка отчета лабораторной работы через Online LaTeX Editor Overleaf
+\end{enumerate}
+
+\section*{8. Распечатка протокола}
+
+\begin{flushleft}
+    \vspace{3mm}
+\textit{Математические формулы}
+\begin{equation*}
+f(x) = \frac{A_0}{2} + \sum \limits_{n=1}^{\infty} A_n \cos \left( \frac{2 n \pi x}{\nu} - \alpha_n \right) 
+\end{equation*}
+
+\begin{equation*}
+ F(x) = \int_{−\infty}^{x}{p(y)\,dy}   
+\end{equation*}
+
+\vspace{3mm}
+\textit{Графики функций}
+
+\begin{tikzpicture}[>=stealth, scale=0.75]
+\draw[->, thin] (-6.5,0) -- (6.5,0) node[below] {$x$};
+\draw[->, thin] (0,-2) -- (0,2) node[left] {$y$};
+\draw[thick,magenta,smooth,samples=200,domain=-2*pi:2*pi]
+plot (\x, {sin(\x r)});
+\foreach \y in {-1,1}
+\draw[shift={(0,\y)}] (2pt,0pt) -- (-2pt,0pt) node[left]
+{\footnotesize $\y$};
+\end{tikzpicture}
+\begin{tikzpicture}[>=stealth]
+\draw[->] (-3,0) -- (3,0) node[below] {$x$}; % Ох
+\draw[->] (0,-1) -- (0,4.5) node[left] {$y$}; % Оу
+\draw[thick, blue, domain=-2:2] plot (\x, {\x*\x});
+\end{tikzpicture}
+
+\vspace{20mm}
+\textit{Геометрические фигуры}
+
+\vspace{3mm}
+\begin{tikzpicture}[scale=0.75]
+\draw (0,0) -- (3,0) -- (3,4) -- cycle;
+\end{tikzpicture}
+\end{flushleft}
+
+
+
+\section*{9. Дневник отладки должен содержать дату и время сеансов отладки и основные события (ошибки в сценарии и программе, нестандартные ситуации) и краткие комментарии к ним. В дневнике отладки приводятся сведения об использовании других ЭВМ, существенном участии преподавателя и других лиц в написании и отладке программы.}
+
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+№ & Лаб. или & Дата & Время & Событие & Действие & Примечания\\ 
+ & дом. & & & & по исправлению&\\
+\hline
+1 & дом. & 24.03.23 & 13:00 & Выполнение лабораторной & - & - \\
+& & & & работы & & \\
+\hline
+\end{tabular}
+
+\section*{10. Замечания автора по существу работы}
+-
+
+\section*{11. Выводы}
+\hspace{10mm}
+Благодаря данной лабораторной работе была освоена работа в издательской системе TeX. Была рассмотрена структура системы. Также было изучено написание текстов, составление таблиц, создание математических формул, графиков, геометрических фигур.
+
+\vspace{10mm}
+Подпись студента \underline{\hspace{3cm}}
+\end{document}
