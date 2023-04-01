@@ -200,7 +200,6 @@ int PopBack(deck *D);
 int PopFront(deck *D);
 void PrintDeck(deck *D);
 void Cat(deck *D, deck *D1);
-int Top(deck *D);
 
 #endif // DECK_H
 ```
@@ -294,14 +293,6 @@ void PrintDeck(deck *D){
 void Cat(deck *D, deck *D1){
     while(!Empty(D1)){
         PushBack(D, PopFront(D1));
-    }
-}
-
-int Top(deck *D){
-    if (Empty(D)){
-        printf("Deque is empty\n");
-    } else{
-        return D -> first -> value;
     }
 }
 ```
