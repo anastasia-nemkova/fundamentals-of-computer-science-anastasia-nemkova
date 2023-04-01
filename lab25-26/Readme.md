@@ -597,6 +597,9 @@ rm program lab26.o dec.o sort.o
 
 2. https://mai2022.contest.codeforces.com/group/Ej1bTQMkro/contest/427392/submission/199845505
 
+**Дорешка**
+
+1. https://mai2022.contest.codeforces.com/group/Ej1bTQMkro/contest/427392/submission/200108420
 
 ## 11. Выводы
 
