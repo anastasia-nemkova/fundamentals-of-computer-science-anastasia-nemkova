@@ -26,6 +26,5 @@ int PopBack(deck *D);
 int PopFront(deck *D);
 void PrintDeck(deck *D);
 void Cat(deck *D, deck *D1);
-int Top(deck *D);
 
 #endif // DECK_H
