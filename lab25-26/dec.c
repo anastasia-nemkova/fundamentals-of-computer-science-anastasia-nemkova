@@ -88,17 +88,3 @@ void Cat(deck *D, deck *D1){
         PushBack(D, PopFront(D1));
     }
 }
-
-int Top(deck *D){
-    if (Empty(D)){
-        printf("Deque is empty\n");
-    } else{
-        return D -> first -> value;
-    }
-}  
-
-
-     
-
-    
-
