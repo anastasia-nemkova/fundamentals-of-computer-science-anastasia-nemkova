@@ -8,7 +8,7 @@
 
 <b>Преподаватель:</b> <ins>асп. каф.806 Сахарин Никита Александрович</ins>
 
-<b>Отчет сдан</b> «01» <ins>мапреля</ins> <ins>2023</ins> г., <b>итоговая оценка</b> <ins></ins>
+<b>Отчет сдан</b> «01» <ins>апреля</ins> <ins>2023</ins> г., <b>итоговая оценка</b> <ins></ins>
 
 <b>Подпись преподавателя:</b> ___________
 
@@ -88,7 +88,241 @@ HDD: 952 ГБ
 	
 6. В `lab26.c` прописываем итераторы для навигации по функциям.
 
+**lab 26**
+```
+#include <stdio.h>
+#include <stdlib.h>
+#include "dec.h"
+
+void init(Deck * const deck){
+    deck -> head = -1;
+    deck -> tail = -1;
+    deck -> size = 0;
+    return;
+}
+
+bool isEmpty(Deck * const deck){
+     return deck -> size == 0;
+}
+
+size_t deckSize(Deck * const deck){
+    return deck -> size;
+}
+
+bool pushFront(Deck * const deck, Elem el){
+    if (!isEmpty(deck)){
+        if(--(deck -> head) < 0){
+            deck -> head = N - 1;
+        }
+    } else {
+        deck -> tail = deck -> head = 0;
+    }
+    deck -> data[deck -> head] = el;
+    deck -> size++;
+    return true;
+
+}
+
+bool pushBack(Deck * const deck, Elem el){
+    if (!isEmpty(deck)){
+        if(++(deck -> tail) < 0){
+            deck -> tail = 0;
+        }
+    } else {
+        deck -> tail = deck -> head = 0;
+    }
+    deck -> data[deck -> tail] = el;
+    deck -> size++;
+    return true;
+}
+
+int popFront(Deck * const deck){
+    ptrdiff_t index = deck -> head;
+    if(isEmpty(deck)){
+        printf("Deque is empty\n");
+    }
+    if(deck -> size == 1){
+        deck -> tail = deck -> head = -1;
+    } else{
+        if(++(deck -> head) == N){
+            deck -> head = 0;
+        }
+    }
+    deck -> size--;
+    return deck -> data[index];
+}
+
+int popBack(Deck * const deck){
+    ptrdiff_t index = deck -> tail;
+    if(isEmpty(deck)){
+        printf("Deque is empty\n");
+    }
+    if(deck -> size == 1){
+        deck -> tail = deck -> head = -1;
+    } else{
+        if(--(deck -> tail) < 0){
+            deck -> tail = N - 1;
+        }
+    }
+    deck -> size--;
+    return deck -> data[index];
+}
+    
+
+void printDeck(Deck * const deck){
+    int i = deck -> head; 
+    while(i > deck -> tail && i != N && deck -> data[i] != 0){
+        printf("%d ", deck -> data[i]);
+        i++;
+    }
+    if (i == N){
+        i = 0;
+    }
+    for(i; i <= deck -> tail; i++){
+        printf("%d ", deck -> data[i]);
+    }
+}
+
+int deckTop(Deck * const deck){
+    if(isEmpty(deck)){
+        printf("Deque is empty\n");
+    } else{
+        return deck -> data[deck -> head];
+    }
+    return -1;
+}
+
+void deckCat(Deck * const deck1, Deck * const deck2){
+    while(!isEmpty(deck2)){
+        pushBack(deck1, popFront(deck2));
+    }
+}
+
+void quickSort(Deck * const deck){
+    Deck *deck1, *deck2;
+    deck1 = (Deck*)malloc(N*sizeof(deck));
+    deck2 = (Deck*)malloc(N*sizeof(deck));  
+    Elem V, V1;
+    if (!isEmpty(deck)){
+        init(deck1);
+        init(deck2);
+        V = popFront(deck);
+        while (!isEmpty(deck)) {
+            if (deckTop(deck) < V)
+                pushBack(deck1, popFront(deck));
+            else
+                pushBack(deck2, popFront(deck));
+        }
+        quickSort(deck1);
+        quickSort(deck2);
+        pushBack(deck1, V);
+        deckCat(deck1, deck2);
+        deckCat(deck, deck1);
+    }
+}
+
+int main(){
+    Deck *deck;
+    deck = (Deck*)malloc(N*sizeof(deck));
+    int flag = 1;
+    int ans, n, el;
+    printf("Select an action:\n"
+    "1. Create deq\n"
+    "2. Print deq\n"
+    "3. Size of deq\n"
+    "4. Push front\n"
+    "5. Push back\n"
+    "6. Delete first element of deq\n"
+    "7. Delete last element of deq\n"
+    "8. Sorting deq\n"
+    "9. Clear deq\n"
+    "10. Concatenation two deq\n" 
+    "0. Exit\n");
+    while(flag == 1){
+        printf("Enter the number: ");
+        scanf("%d", &ans);
+        switch(ans){
+            case 0:
+                flag = 0;
+                break;
+                
+            case 1:
+                init(deck);
+                printf("Enter the number of elements\n");
+                scanf("%d", &n);
+                for(int i = 0; i < n; i++){
+                    scanf("%d", &el);
+                    pushBack(deck, el);
+                }	
+                break;
+                
+            case 2:
+                printDeck(deck);
+                printf("\n");
+                break;
+                
+            case 3:
+                printf("Size: %ld\n", deckSize(deck));
+                break;
+                
+            case 4:
+                printf("Enter the element\n");
+                scanf("%d", &el);
+                pushFront(deck, el);
+                break;
+                
+            case 5:
+                printf("Enter the element\n");
+                scanf("%d", &el);
+                pushBack(deck, el);
+                break;
+                
+            case 6:
+                printf("Delet: %d\n", popFront(deck));
+                break;
+                
+            case 7:
+                printf("Delet: %d\n", popBack(deck));
+                break;
+                
+            case 8:
+                quickSort(deck);
+                break;
+                
+            case 9:
+                init(deck);
+                break;
+                
+            case 10:
+                if(isEmpty(deck)){
+                    printf("Enter the number of elements first deq\n");
+                    scanf("%d", &n);
+                    init(deck);
+                    for(int i = 0; i < n; i ++){
+                        scanf("%d", &el);
+                        pushBack(deck, el);
+                    }
+                } 
+                printf("Enter the number of elements second deq\n");
+                int n1;
+                scanf("%d", &n1);
+                Deck *deck1;
+                deck1 = (Deck*)malloc(sizeof(Deck));
+                init(deck1);
+                for(int i = 0; i < n1; i++){
+                    scanf("%d", &el);
+                    pushBack(deck1, el);
+                }
+                deckCat(deck, deck1);
+                break;
+        }
+    }
+}
+```
+
 ## 7. Сценарий выполнения работы
+
+**lab 25**
 
 **Makefile**
 ```
@@ -415,12 +649,6 @@ int main(){
 **8. Распечатка протокола**
 
 ```
-anastasia@anastasia-VirtualBox:~/lab25-26$ make
-gcc -g  -c lab26.c
-gcc -g  -c dec.c
-gcc -g  -c sort.c
-gcc -g  -o program lab26.o dec.o sort.o
-anastasia@anastasia-VirtualBox:~/lab25-26$ ./a.out
 Select an action:
 1. Create deq
 2. Print deq
@@ -435,151 +663,41 @@ Select an action:
 0. Exit
 Enter the number: 1
 Enter the number of elements
-5
-2 7 1 5 3
-
-Select an action:
-1. Create deq
-2. Print deq
-3. Size of deq
-4. Push front
-5. Push back
-6. Delete first element of deq
-7. Delete last element of deq
-8. Sorting deq
-9. Clear deq
-10. Concatenation two deq
-0. Exit
-Enter the number: 3
-Size: 5
-Select an action:
-1. Create deq
-2. Print deq
-3. Size of deq
-4. Push front
-5. Push back
-6. Delete first element of deq
-7. Delete last element of deq
-8. Sorting deq
-9. Clear deq
-10. Concatenation two deq
-0. Exit
-Enter the number: 6
-Delet: 2
-Select an action:
-1. Create deq
-2. Print deq
-3. Size of deq
-4. Push front
-5. Push back
-6. Delete first element of deq
-7. Delete last element of deq
-8. Sorting deq
-9. Clear deq
-10. Concatenation two deq
-0. Exit
-Enter the number: 2
-7 1 5 3 
-Select an action:
-1. Create deq
-2. Print deq
-3. Size of deq
-4. Push front
-5. Push back
-6. Delete first element of deq
-7. Delete last element of deq
-8. Sorting deq
-9. Clear deq
-10. Concatenation two deq
-0. Exit
+65
+4 67 4 7 6 5 54 54 4 5 6 6 6 7 78 78 7 65 5 4  4 3 3  4 5 6 6 6 7 7 7 7 7 7 7  77 
+3  344  4 4 4 4 4 4 4 4 4  4 4 44 
+7
+9
+23 3 4  5 6 6 5 4 4 3 3 
+9
+0
+Enter the number: 2 
+4 67 4 7 6 5 54 54 4 5 6 6 6 7 78 78 7 65 5 4 4 3 3 4 5 6 6 6 7 7 7 7 7 7 7 77 3 344 4 4 4 4 4 4 4 4 4 4 4 44 7 9 23 3 4 5 6 6 5 4 4 3 3 9 0 
 Enter the number: 8
-Select an action:
-1. Create deq
-2. Print deq
-3. Size of deq
-4. Push front
-5. Push back
-6. Delete first element of deq
-7. Delete last element of deq
-8. Sorting deq
-9. Clear deq
-10. Concatenation two deq
-0. Exit
 Enter the number: 2
-1 3 5 7 
-Select an action:
-1. Create deq
-2. Print deq
-3. Size of deq
-4. Push front
-5. Push back
-6. Delete first element of deq
-7. Delete last element of deq
-8. Sorting deq
-9. Clear deq
-10. Concatenation two deq
-0. Exit
+0 3 3 3 3 3 3 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 5 5 5 5 5 5 6 6 6 6 6 6 6 6 6 7 7 7 7 7 7 7 7 7 7 7 9 9 23 44 54 54 65 67 77 78 78 344 
+Enter the number: 7
+Delet: 344
+Enter the number: 2
+0 3 3 3 3 3 3 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 5 5 5 5 5 5 6 6 6 6 6 6 6 6 6 7 7 7 7 7 7 7 7 7 7 7 9 9 23 44 54 54 65 67 77 78 78 
+Enter the number: 4
+Enter the element
+90
+Enter the number: 2
+90 0 3 3 3 3 3 3 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 5 5 5 5 5 5 6 6 6 6 6 6 6 6 6 7 7 7 7 7 7 7 7 7 7 7 9 9 23 44 54 54 65 67 77 78 78 
 Enter the number: 10
 Enter the number of elements second deq
-4
-2 7 1 9
-
-Select an action:
-1. Create deq
-2. Print deq
-3. Size of deq
-4. Push front
-5. Push back
-6. Delete first element of deq
-7. Delete last element of deq
-8. Sorting deq
-9. Clear deq
-10. Concatenation two deq
-0. Exit
+2
+58 1001
 Enter the number: 2
-1 3 5 7 2 7 1 9 
-Select an action:
-1. Create deq
-2. Print deq
-3. Size of deq
-4. Push front
-5. Push back
-6. Delete first element of deq
-7. Delete last element of deq
-8. Sorting deq
-9. Clear deq
-10. Concatenation two deq
-0. Exit
+90 0 3 3 3 3 3 3 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 5 5 5 5 5 5 6 6 6 6 6 6 6 6 6 7 7 7 7 7 7 7 7 7 7 7 9 9 23 44 54 54 65 67 77 78 78 58 1001 
 Enter the number: 8
-Select an action:
-1. Create deq
-2. Print deq
-3. Size of deq
-4. Push front
-5. Push back
-6. Delete first element of deq
-7. Delete last element of deq
-8. Sorting deq
-9. Clear deq
-10. Concatenation two deq
-0. Exit
 Enter the number: 2
-1 1 2 3 5 7 7 9 
-Select an action:
-1. Create deq
-2. Print deq
-3. Size of deq
-4. Push front
-5. Push back
-6. Delete first element of deq
-7. Delete last element of deq
-8. Sorting deq
-9. Clear deq
-10. Concatenation two deq
-0. Exit
-Enter the number: 0
-anastasia@anastasia-VirtualBox:~/lab25-26$ make clean
-rm program lab26.o dec.o sort.o
+0 3 3 3 3 3 3 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 5 5 5 5 5 5 6 6 6 6 6 6 6 6 6 7 7 7 7 7 7 7 7 7 7 7 9 9 23 44 54 54 58 65 67 77 78 78 90 1001 
+Enter the number: 9
+Enter the number: 2
+0 
+Enter the number: 0 
 
 ```
 
