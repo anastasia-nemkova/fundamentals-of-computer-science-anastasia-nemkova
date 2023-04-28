@@ -709,17 +709,9 @@ Enter the number: 0
 
 ## 10. Замечания автора по существу работы
 
-**Защита с Олимпроги**
+[Защита с Олимпроги](https://mai2022.contest.codeforces.com/group/Ej1bTQMkro/contest/427390/submission/197666169)
 
-1. https://mai2022.contest.codeforces.com/group/Ej1bTQMkro/contest/427392/submission/199850155
-
-2. https://mai2022.contest.codeforces.com/group/Ej1bTQMkro/contest/427392/submission/199845505
-
-**Дорешка**
-
-1. https://mai2022.contest.codeforces.com/group/Ej1bTQMkro/contest/427392/submission/200108420
-
-2. https://mai2022.contest.codeforces.com/group/Ej1bTQMkro/contest/427392/submission/200115498
+[Дорешка](https://mai2022.contest.codeforces.com/group/Ej1bTQMkro/contest/427390/submission/198070044)
 
 ## 11. Выводы
 
