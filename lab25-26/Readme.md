@@ -710,8 +710,11 @@ Enter the number: 0
 ## 10. Замечания автора по существу работы
 
 [Защита с Олимпроги](https://mai2022.contest.codeforces.com/group/Ej1bTQMkro/contest/427392/submission/199850155)
+				      
 [Защита с Олимпроги](https://mai2022.contest.codeforces.com/group/Ej1bTQMkro/contest/427392/submission/199845505)
+				      
 [Дорешка](https://mai2022.contest.codeforces.com/group/Ej1bTQMkro/contest/427392/submission/200108420)
+				      
 [Дорешка](https://mai2022.contest.codeforces.com/group/Ej1bTQMkro/contest/427392/submission/200115498)
 
 ## 11. Выводы
