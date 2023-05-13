@@ -153,32 +153,24 @@ void printDown(){
     printf ("_________________________________________________________________________________________________________\n");
 }
 
-//Сортировка оценок по убыванию
-int markSort(int mark[]){
-    for(int i = 0; i < 6; i++){
-        for(int j = i + 1; j < 6; j++){
-            if(mark[i] < mark[j]){
-                int t = mark[i];
-                mark[i] = mark[j];
-                mark[j] = t;
-            }
+int markFind(int mark[]){
+    int sum = 0;
+    for(int i = 0; i < 7; i++){
+        if(mark[i] == 5){
+            ++sum;
         }
     }
-    return mark;
+    return sum;
 }
 
 //Поиск студенток с одной пятеркой
-void listStudents(FILE * in){
+void listStudents(FILE * in, int p){
     Person person;
-    int p;
     int sum = 0;
-    printf("Enter the group number\n");
-    scanf("%d", &p);
     char *gender = "F";
     while(fread(&person, sizeof(person), 1, in)){
         int mark[] = {person.markMat, person.markLA, person.markDM, person.markInf, person.markEng, person.markFil, person.markEconom};
-        markSort(mark);
-        if(person.group == p && person.gender == *gender && mark[0] > mark[1]){
+        if(person.group == p && person.gender == *gender && markFind(mark) == 1 ){
         if(sum == 0){
             printUp();
         }
@@ -210,8 +202,9 @@ int main(int argc, char *argv[]){
         listPrint(in);
         printDown();
     }
-    if(!strcmp(argv[1], "-p")){
-        listStudents(in);
+    int p = atoi(argv[1]);
+    if(p){
+        listStudents(in, p);
 
     }
     fclose(in);
