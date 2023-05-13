@@ -220,7 +220,7 @@ static size_t nodeDelete(TreeNode * const node) {
         count += nodeDelete(child);
         child = child -> rightBrother;
     }
-    (void) node; // to make it compile
+    free(node);
     return count;
 }
 
@@ -228,7 +228,6 @@ void treeDestroy(Tree * const tree){
     assert(tree != NULL);
     if(tree -> root != NULL){
         nodeDelete(tree -> root);
-        free(tree -> root);
     }
     tree -> size = 0;
 }
