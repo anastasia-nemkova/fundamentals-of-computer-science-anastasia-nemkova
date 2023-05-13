@@ -295,11 +295,15 @@ There are no students having only one 5
 | **1** | **Дом.** | **09.05.23** | **13:00** | **Выполнение лабораторной работы** | **-** | **-** |
 
 ## 10. Замечания автора по существу работы
-[Защита ]()
+[Защита div4](https://codeforces.com/contest/1829/submission/204854650)
 
-[Защита]()
+[Защита div4](https://codeforces.com/contest/1829/submission/204841140)
 
-[Защита]()
+[Защита div4](https://codeforces.com/contest/1829/submission/204839293)
+  
+[Дорешка div4](https://codeforces.com/contest/1829/submission/205703437)
+  
+[Дорешка div4](https://codeforces.com/contest/1829/submission/205695101)
 
 ## 11. Выводы
 
