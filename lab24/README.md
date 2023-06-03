@@ -131,11 +131,12 @@ void postfixTraversal(Node* node);
   
   **tree.c**
   ```
-  #include <assert.h>
+ #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <math.h>
 
 #include "tree.h"
 
@@ -242,13 +243,13 @@ void printExpressionTree(Node* node, int level) {
 }
 
 int isOperator(char c) {
-    return (c == '+'||  c == '-' || c == '*' || c == '/');
+    return (c == '+'||  c == '-' || c == '*' || c == '/' || c == '^');
 }
 
 int getOperatorPriority(char op) {
     if (op == '+' || op == '-')
         return 1;
-    else if (op == '*' || op == '/')
+    else if (op == '*' || op == '/' || op == '^')
         return 2;
     else
         return 0;
@@ -259,7 +260,6 @@ int isUnaryMinus(const char* infix, int index) {
         return 1;
     }
     char prevChar = infix[index - 1];
-    printf("'PREVCHAR'%d %d\n", index, prevChar);
     return (isOperator(prevChar) || prevChar == '(' || prevChar == ' ');
 }
 
@@ -326,9 +326,16 @@ Node* ExpressionTreeFromInfix(const char* infix) {
             postfix[postfixIndex++] = ' ';
             i--;
         } else if (isOperator(c)) {
-            while (top >= 0 && stack[top] != '(' && getOperatorPriority(stack[top]) >= getOperatorPriority(c)) {
-                postfix[postfixIndex++] = stack[top--];
-                postfix[postfixIndex++] = ' ';
+            if (c == '^') {
+                while (top >= 0 && stack[top] != '(' && getOperatorPriority(stack[top]) > getOperatorPriority(c)) {
+                    postfix[postfixIndex++] = stack[top--];
+                    postfix[postfixIndex++] = ' ';
+                }
+            } else {
+                while (top >= 0 && stack[top] != '(' && getOperatorPriority(stack[top]) >= getOperatorPriority(c)) {
+                    postfix[postfixIndex++] = stack[top--];
+                    postfix[postfixIndex++] = ' ';
+                }
             }
             stack[++top] = c;
         } else if (c == '(') {
@@ -348,9 +355,8 @@ Node* ExpressionTreeFromInfix(const char* infix) {
     }
 
     postfix[postfixIndex] = '\0';
-
     return ExpressionTreeFromPostfix(postfix);
-}             
+}
 
 
 
@@ -363,34 +369,32 @@ Node* simplifyExpression(Node* root) {
 
         root->nodeUnion.op.left = simplifyExpression(root->nodeUnion.op.left);
         root->nodeUnion.op.right = simplifyExpression(root->nodeUnion.op.right);
-        
-        if(root->nodeUnion.op.right->nodeUnion.value == 0 && root->nodeUnion.op.left->nodeUnion.value == 0){
-            free(root);
-            return createValueNode(0.0);
-        }
-
+        root->nodeUnion.op.left->parent = root->nodeUnion.op.right->parent = root;
         if (root->nodeUnion.op.op == '*') {
-
-            if (root->nodeUnion.op.left->nodeType == VALUE && root->nodeUnion.op.left->nodeUnion.value == 0.0) {
+            if (root->nodeUnion.op.left->nodeType == VALUE  && root->nodeUnion.op.left->nodeUnion.value == 0.0) {
+                deleteExpressionTree(root->nodeUnion.op.right);
+                Node * left = root->nodeUnion.op.left; 
                 free(root);
-                return createValueNode(0.0);
+                return left;
             }
             
             if (root->nodeUnion.op.right->nodeType == VALUE && root->nodeUnion.op.right->nodeUnion.value == 0.0) {
+                deleteExpressionTree(root->nodeUnion.op.left);
+                Node * right = root->nodeUnion.op.right;
                 free(root);
-                return createValueNode(0.0);
+                return right;
             }
         //Удаляем лишние нули
         } else if(root->nodeUnion.op.op == '+'){
             if (root->nodeUnion.op.left->nodeType == VALUE && root->nodeUnion.op.left->nodeUnion.value == 0.0){
                 Node *right = root->nodeUnion.op.right;
-                free(root);
+                deleteExpressionTree(root->nodeUnion.op.left);
                 *root = *right;
                 free(right);
             }
             if (root->nodeUnion.op.right->nodeType == VALUE && root->nodeUnion.op.right->nodeUnion.value == 0.0){
                 Node *left = root->nodeUnion.op.left;
-                free(root);
+                deleteExpressionTree(root->nodeUnion.op.right);
                 *root = *left;
                 free(left);
             }
@@ -442,13 +446,55 @@ void postfixTraversal(Node* node) {
     }
 }
 
+double pow(double base, double exponent) {
+    double result = 1.0;
+    int positiveExponent = (exponent >= 0);
+    
+    if (!positiveExponent) {
+        exponent = -exponent;
+    }
+    
+    while (exponent > 0) {
+        result *= base;
+        exponent--;
+    }
+    
+    return (positiveExponent) ? result : 1.0 / result;
+}
+
+double treeCalculator(Node* node) {
+    if (node == NULL)
+        return 0.0;
+    
+    if (node->nodeType == OPERATOR) {
+        double leftValue = treeCalculator(node->nodeUnion.op.left);
+        double rightValue = treeCalculator(node->nodeUnion.op.right);
+        double value;
+        
+        switch (node->nodeUnion.op.op) {
+            case '+':
+                return leftValue + rightValue;
+            case '-':
+                return leftValue - rightValue;
+            case '*':
+                return leftValue * rightValue;
+            case '/':
+                return leftValue / rightValue;
+            case '^':
+                return pow(leftValue, rightValue);
+        }
+    } else if (node->nodeType == VALUE) {
+        return node->nodeUnion.value;
+    }
+    
+    return 0;
+}
+
 int main(void) {
-   
     char infixExpression[NODES_LENGTH];
     printf("Enter the expression:\n");
     fgets(infixExpression, sizeof(infixExpression), stdin);
     infixExpression[strcspn(infixExpression, "\n")] = '\0';
-    printf("%s\n", infixExpression);
     Node* expressionTree = ExpressionTreeFromInfix(infixExpression);
 
     printf("Expression tree:\n");
@@ -477,6 +523,9 @@ int main(void) {
 
     printf("-----\n");
     
+    double result = treeCalculator(expressionTree);
+    printf("Result: %.2f\n", result);
+
     deleteExpressionTree(expressionTree);
     
     return 0;
@@ -485,7 +534,173 @@ int main(void) {
         
 ## 8. Распечатка протокола
 
+```
+  arnemkova@LAPTOP-TA2RV74U:~/LABS/lab24$ gcc tree.c
+arnemkova@LAPTOP-TA2RV74U:~/LABS/lab24$ valgrind --leak-check=full ./a.out
+==5997== Memcheck, a memory error detector
+==5997== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==5997== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==5997== Command: ./a.out
+==5997==
+Enter the expression:
+((4+(-5))+8)+((8/5)*(3*0))
+Expression tree:
+                        4.00
+                +
+                        -5.00
+        +
+                8.00
++
+                        8.00
+                /
+                        5.00
+        *
+                        3.00
+                *
+                        0.00
+Tree size: 13
 
+Prefix traversal: + + + 4.00 -5.00 8.00 * / 8.00 5.00 * 3.00 0.00
+Infix traversal: 4.00 + -5.00 + 8.00 + 8.00 / 5.00 * 3.00 * 0.00
+Postfix traversal: 4.00 -5.00 + 8.00 + 8.00 5.00 / 3.00 0.00 * * +
+-----
+Original expression: (((4.00 + -5.00) + 8.00) + ((8.00 / 5.00) * (3.00 * 0.00)))
+Simplified expression: ((4.00 + -5.00) + 8.00)
+Tree size: 5
+                4.00
+        +
+                -5.00
++
+        8.00
+-----
+Result: 7.00
+==5997==
+==5997== HEAP SUMMARY:
+==5997==     in use at exit: 0 bytes in 0 blocks
+==5997==   total heap usage: 15 allocs, 15 frees, 2,568 bytes allocated
+==5997==
+==5997== All heap blocks were freed -- no leaks are possible
+==5997==
+==5997== For lists of detected and suppressed errors, rerun with: -s
+==5997== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+arnemkova@LAPTOP-TA2RV74U:~/LABS/lab24$ valgrind --leak-check=full ./a.out
+==5999== Memcheck, a memory error detector
+==5999== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==5999== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==5999== Command: ./a.out
+==5999==
+Enter the expression:
+5 ^ 3 ^ 2
+Expression tree:
+        5.00
+^
+                3.00
+        ^
+                2.00
+Tree size: 5
+
+Prefix traversal: ^ 5.00 ^ 3.00 2.00
+Infix traversal: 5.00 ^ 3.00 ^ 2.00
+Postfix traversal: 5.00 3.00 2.00 ^ ^
+-----
+Original expression: (5.00 ^ (3.00 ^ 2.00))
+Simplified expression: (5.00 ^ (3.00 ^ 2.00))
+Tree size: 5
+        5.00
+^
+                3.00
+        ^
+                2.00
+-----
+Result: 1953125.00
+==5999==
+==5999== HEAP SUMMARY:
+==5999==     in use at exit: 0 bytes in 0 blocks
+==5999==   total heap usage: 7 allocs, 7 frees, 2,248 bytes allocated
+==5999==
+==5999== All heap blocks were freed -- no leaks are possible
+==5999==
+==5999== For lists of detected and suppressed errors, rerun with: -s
+==5999== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+arnemkova@LAPTOP-TA2RV74U:~/LABS/lab24$ valgrind --leak-check=full ./a.out
+==6000== Memcheck, a memory error detector
+==6000== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==6000== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==6000== Command: ./a.out
+==6000==
+Enter the expression:
+(5 ^ 3) ^ 2
+Expression tree:
+                5.00
+        ^
+                3.00
+^
+        2.00
+Tree size: 5
+
+Prefix traversal: ^ ^ 5.00 3.00 2.00
+Infix traversal: 5.00 ^ 3.00 ^ 2.00
+Postfix traversal: 5.00 3.00 ^ 2.00 ^
+-----
+Original expression: ((5.00 ^ 3.00) ^ 2.00)
+Simplified expression: ((5.00 ^ 3.00) ^ 2.00)
+Tree size: 5
+                5.00
+        ^
+                3.00
+^
+        2.00
+-----
+Result: 15625.00
+==6000==
+==6000== HEAP SUMMARY:
+==6000==     in use at exit: 0 bytes in 0 blocks
+==6000==   total heap usage: 7 allocs, 7 frees, 2,248 bytes allocated
+==6000==
+==6000== All heap blocks were freed -- no leaks are possible
+==6000==
+==6000== For lists of detected and suppressed errors, rerun with: -s
+==6000== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+arnemkova@LAPTOP-TA2RV74U:~/LABS/lab24$ valgrind --leak-check=full ./a.out
+==6001== Memcheck, a memory error detector
+==6001== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==6001== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==6001== Command: ./a.out
+==6001==
+Enter the expression:
+5 ^ (3 ^ 2)
+Expression tree:
+        5.00
+^
+                3.00
+        ^
+                2.00
+Tree size: 5
+
+Prefix traversal: ^ 5.00 ^ 3.00 2.00
+Infix traversal: 5.00 ^ 3.00 ^ 2.00
+Postfix traversal: 5.00 3.00 2.00 ^ ^
+-----
+Original expression: (5.00 ^ (3.00 ^ 2.00))
+Simplified expression: (5.00 ^ (3.00 ^ 2.00))
+Tree size: 5
+        5.00
+^
+                3.00
+        ^
+                2.00
+-----
+Result: 1953125.00
+==6001==
+==6001== HEAP SUMMARY:
+==6001==     in use at exit: 0 bytes in 0 blocks
+==6001==   total heap usage: 7 allocs, 7 frees, 2,248 bytes allocated
+==6001==
+==6001== All heap blocks were freed -- no leaks are possible
+==6001==
+==6001== For lists of detected and suppressed errors, rerun with: -s
+==6001== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+```
 
 ## 9. Дневник отладки
 
