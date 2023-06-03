@@ -429,7 +429,7 @@ int main(int argc, char *argv[]) {
 | **1** | **Дом.** | **03.06.23** | **13:00** | **Выполнение лабораторной работы** | **-** | **-** |
 
 ## 10. Замечания автора по существу работы
-[Защита Олиппрога](https://mai2022.contest.codeforces.com/group/Ej1bTQMkro/contest/427395/submission/202883146)
+[Защита Олимпрога](https://mai2022.contest.codeforces.com/group/Ej1bTQMkro/contest/427395/submission/202883146)
                                          
 [Дорешка](https://mai2022.contest.codeforces.com/group/Ej1bTQMkro/contest/427395/submission/202880504)
                                          
